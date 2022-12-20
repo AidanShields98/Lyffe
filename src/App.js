@@ -7,6 +7,11 @@ import SignUpDialog from './components/SignUpDialog';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import LogInDialog from './components/LoginDialog'
+// import { Routes, Route } from 'react-router-dom';
+// import Home from './pages/Home';
+// import Exercises from './pages/Exercises';
+// import Workout from './pages/Workout';
+// import User from './pages/User';
 
 function App() {
 
@@ -35,16 +40,15 @@ function App() {
     <div>
       <AppBar sx={{ height: '51px', textAlign: 'center', xs: 'none', md: 'flex'}}>
         <Toolbar> 
-           <Button sx={{  width: '10%', color:'white'  }} onClick={handleOpen}>Signup</Button>
-           <Typography  component="div" sx={{ flexGrow: 1, textAlign: 'center', fontSize: '30px'  }}>
+           <Button sx={{  width: '10%', color:'white', fontSize: '2vh', marginBottom:'.5%'  }} onClick={handleOpen}>Signup</Button>
+           <Typography  component="div" sx={{ flexGrow: 1, textAlign: 'center', fontSize: '4vh', marginBottom:' .5%' }}>
             Lyffe
           </Typography>
-          <Button sx={{  width: '10%', color:'white'  }} onClick={handleOpenLogin}>Login</Button>
+          <Button sx={{  width: '10%', color:'white', fontSize: '2vh', marginBottom:'.5%' }} onClick={handleOpenLogin}>Login</Button>
         </Toolbar>     
       </AppBar>
-     
       <SignUpDialog open={signup} handleClose={handleClose} />
-      <LogInDialog open={login} handleClose={handleCloseLogin} />
+      <LogInDialog open={login} handleClose={handleCloseLogin} /> 
       <BottomNavigation />
     </div>
   );
