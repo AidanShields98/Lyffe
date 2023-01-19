@@ -1,11 +1,16 @@
 import React from 'react'
 
-const Exercises = () => {
+export function Exercises() {
     return (
-        <div>
+        <div style={{
+            position: "absolute",
+            top: "50%",
+            left: "50%"
+        }
+            }>
             <h1>Exercises</h1>
         </div>
     )
 }
 
-export default Exercises
+
