@@ -7,11 +7,12 @@ import SignUpDialog from './components/SignUpDialog';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import LogInDialog from './components/LoginDialog'
-// import { Routes, Route } from 'react-router-dom';
-// import Home from './pages/Home';
-// import Exercises from './pages/Exercises';
-// import Workout from './pages/Workout';
-// import User from './pages/User';
+import { Routes, Route } from 'react-router-dom';
+
+import {Home} from './pages/Home';
+import {Exercises} from './pages/Exercises';
+import {Workout} from './pages/Workout';
+import {User} from './pages/User';
 
 function App() {
 
@@ -50,6 +51,12 @@ function App() {
       <SignUpDialog open={signup} handleClose={handleClose} />
       <LogInDialog open={login} handleClose={handleCloseLogin} /> 
       <BottomNavigation />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/exercises" element={<Exercises />} />
+        <Route path="/workout" element={<Workout />} />
+        <Route path="/user" element={<User />} />
+      </Routes>
     </div>
   );
 }

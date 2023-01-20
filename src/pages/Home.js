@@ -1,11 +1,15 @@
 import React from 'react'
 
-const Home = () => {
+export function Home() {
     return (
-        <div>
+        <div style={{
+            position: "absolute",
+            top: "50%",
+            left: "50%"
+        }
+            }>
             <h1>Home</h1>
         </div>
     )
 }
 
-export default Home

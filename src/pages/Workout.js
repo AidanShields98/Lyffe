@@ -1,11 +1,15 @@
 import React from 'react'
 
-const Workout = () => {
+export function Workout() {
     return (
-        <div>
+        <div style={{
+            position: "absolute",
+            top: "50%",
+            left: "50%"
+        }
+            }>
             <h1>Workout</h1>
         </div>
     )
 }
 
-export default Workout
