@@ -1,16 +1,18 @@
-import React from 'react'
+import React, { useState } from 'react';
+import { Box } from '@mui/material'
 
-export function Exercises() {
+import Exercise from '../components/Exercise';
+
+const Exercises = () => {
+
+    const [exercises, setExercises] = useState([]);
+    const [bodyPart] = useState('all');
+
     return (
-        <div style={{
-            position: "absolute",
-            top: "50%",
-            left: "50%"
-        }
-            }>
-            <h1>Exercises</h1>
-        </div>
+        <Box>
+            <Exercise setExercises={setExercises} exercises={exercises} bodyPart={bodyPart} />
+        </Box>
     )
 }
 
-
+export default Exercises;
