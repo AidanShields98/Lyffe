@@ -12,7 +12,7 @@ import { useNavigate } from 'react-router-dom';
 export default function BottomNav() {
   const [value, setValue] = React.useState(0);
  
-  const handleChange = (value, newValue) => {
+  const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
