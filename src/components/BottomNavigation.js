@@ -20,7 +20,7 @@ export default function BottomNav() {
   
 
   return (
-    <Box sx={{width: '99%' ,bottom: 0, top: 'auto', position: 'absolute',   }}>
+    <Box sx={{width: '99%' ,bottom: 0, top: 'auto', position: 'fixed',   }}>
       <BottomNavigation
         value={value}
         sx={{
