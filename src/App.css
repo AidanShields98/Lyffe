@@ -74,7 +74,7 @@
     height: 445px;
     background: #fff;
     border-top: 4px solid #1976d2;
-    border-bottom-left-radius: 20px;
+    border-bottom: 4px solid #1976d2;
     text-decoration: none;
     display: flex;
     justify-content: space-between;
