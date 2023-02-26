@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Box, Button, Stack, TextField, Typography } from '@mui/material';
 
 import { exerciseOptions, fetchData } from '../utils/fetchData';
-import ScrollBody from './ScrollBody';
+
+import SelectBodyPart from './SelectBodyPart';
 
 const SearchExercises = ({ setExercises, bodyPart, setBodyPart }) => {
   const [search, setSearch] = useState('');
@@ -54,8 +55,8 @@ const SearchExercises = ({ setExercises, bodyPart, setBodyPart }) => {
           Search
         </Button>
       </Box>
-      <Box sx={{ position: 'relative', width: '100%', p: '20px' }}>
-        <ScrollBody data={bodyParts} bodyParts setBodyPart={setBodyPart} bodyPart={bodyPart} />
+      <Box sx={{ position: 'relative', p: '20px' }}>
+        <SelectBodyPart data={bodyParts} bodyParts setBodyPart={setBodyPart} bodyPart={bodyPart} />
       </Box>
     </Stack>
   );

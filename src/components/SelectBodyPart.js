@@ -3,15 +3,9 @@ import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
 import NativeSelect from "@mui/material/NativeSelect";
-import ExerciseCard from "./ExerciseCard";
-import { MenuItem, Select, Typography } from "@mui/material";
+import MenuItem from "@mui/material/MenuItem";
 
-export default function SelectBodyPaty({
-  data,
-  bodyParts,
-  setBodyPart,
-  bodyPart,
-}) {
+export default function SelectBodyPart({ data, setBodyPart }) {
   const handleChange = (event) => {
     setBodyPart(event.target.value);
   };
@@ -19,15 +13,16 @@ export default function SelectBodyPaty({
   return (
     <Box sx={{ width: "300px", textAlign: "center" }}>
       <FormControl id="form" fullWidth>
-        <InputLabel id="input" variant="standard" htmlFor="uncontrolled-native">
-          Select Bodypart
+        <InputLabel id="input" variant="standard" htmlFor="uncontrolled-native" >
+          Filter by Bodypart
         </InputLabel>
         <NativeSelect
           defaultValue={30}
           inputProps={{
-            name: "age",
+            name: "bodypart",
             id: "uncontrolled-native",
           }}
+          onChange={handleChange}
         >
           {data.map(({ idx, name }) => (
             <MenuItem key={idx} value={idx}>
@@ -35,32 +30,7 @@ export default function SelectBodyPaty({
             </MenuItem>
           ))}
         </NativeSelect>
-        {data.map((item) => (
-        <Box key={item.id || item} m="0 40px">
-          {item.bodyPart === bodyPart ? (
-            <ExerciseCard exercise={item} />
-          ) : (
-            <Typography variant="body1">{item.name}</Typography>
-          )}
-        </Box>
-      ))}
       </FormControl>
     </Box>
   );
 }
-
-// {data.map((item) => (
-//   <Box
-//     key={item.id || item}
-//     itemId={item.id || item}
-//     title={item.id || item}
-//     m="0 22px"
-//   >
-//     {bodyParts ? (
-//       <BodyCard
-//         item={item}
-//         setBodyPart={setBodyPart}
-//         bodyPart={bodyPart}
-//       />
-//     ) : (}
-//   </Box>

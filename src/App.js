@@ -42,11 +42,11 @@ function App() {
     <div>
       <AppBar sx={{ height: '51px', textAlign: 'center', xs: 'none', md: 'flex'}}>
         <Toolbar> 
-           <Button sx={{  width: '10%', color:'white', fontSize: '2vh', marginBottom:'.5%'  }} onClick={handleOpen}>Signup</Button>
+           {/* <Button sx={{  width: '10%', color:'white', fontSize: '2vh', marginBottom:'.5%'  }} onClick={handleOpen}>Signup</Button> */}
            <Typography  component="div" sx={{ flexGrow: 1, textAlign: 'center', fontSize: '4vh', marginBottom:' .5%' }}>
             Lyffe
           </Typography>
-          <Button sx={{  width: '10%', color:'white', fontSize: '2vh', marginBottom:'.5%' }} onClick={handleOpenLogin}>Login</Button>
+          {/* <Button sx={{  width: '10%', color:'white', fontSize: '2vh', marginBottom:'.5%' }} onClick={handleOpenLogin}>Login</Button> */}
         </Toolbar>     
       </AppBar>
       <SignUpDialog open={signup} handleClose={handleClose} />
