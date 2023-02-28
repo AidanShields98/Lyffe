@@ -36,15 +36,16 @@ const Exercise = ({ exercises, setExercises, bodyPart }) => {
     };
 
   return (
-    <Box id="exercises" sx={{ mt: { lg: '109px'} }} mt="50px" padding= "60px 20px 60px" >
+    <Box id="exercises" padding= "60px 20px 60px" >
       <Stack direction="row" sx={{ gap: { lg: '89px', xs: '50px' } }} flexWrap="wrap" justifyContent="center">
       {currentExercises.map((exercise, idx) => (
           <ExerciseCard key={idx} exercise={exercise} />
         ))}
       </Stack>
-      <Stack sx={{ mt: { lg: '114px', xs: '70px' } }} alignItems="center">
+      <Stack sx={{ m: { lg: '30px', xs: '30px' } }} alignItems="center">
         {exercises.length > 9 && (
           <Pagination
+            flexWrap="nowrap"
             color="standard"
             shape="rounded"
             defaultPage={1}
