@@ -52,11 +52,7 @@ const Exercise = ({ exercises, setExercises, bodyPart }) => {
             count={Math.ceil(exercises.length / exercisesPerPage)}
             page={currentPage}
             onChange={paginate}
-            size= {{
-              lg: 'large',
-              xs: 'medium'
-            }
-            }
+            size="medium"
           />
         )}
       </Stack>
