@@ -14,6 +14,7 @@ import {Home} from './pages/Home';
 import Exercises from './pages/Exercises';
 import {Workout} from './pages/Workout';
 import {User} from './pages/User';
+import ExerciseDetail from './pages/ExerciseDetail';
 
 function App() {
 
@@ -58,6 +59,7 @@ function App() {
         <Route path="/exercises" element={<Exercises />} />
         <Route path="/workout" element={<Workout />} />
         <Route path="/user" element={<User />} />
+        <Route path="/exercise/:id" element={<ExerciseDetail />} />
       </Routes>
       <BottomNavigation />
     </div>
