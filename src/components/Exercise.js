@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Stack, Typography } from '@mui/material';
+import { Box, Stack } from '@mui/material';
 import Pagination from '@mui/material/Pagination';
 import { exerciseOptions, fetchData } from '../utils/fetchData';
 import ExerciseCard from './ExerciseCard';
@@ -52,11 +52,7 @@ const Exercise = ({ exercises, setExercises, bodyPart }) => {
             count={Math.ceil(exercises.length / exercisesPerPage)}
             page={currentPage}
             onChange={paginate}
-            size= {{
-              lg: 'large',
-              xs: 'medium'
-            }
-            }
+            size= "medium"
           />
         )}
       </Stack>
