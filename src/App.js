@@ -40,6 +40,7 @@ function App() {
         <Route path="/exercises" element={<Exercises />} />
         <Route path="/workout" element={<Workout />} />
         <Route path="/user" element={<User />} />
+        <Route path="/exercise/:id" element={<ExerciseDetail />} />
       </Routes>
       <BottomNavigation />
     </div>
