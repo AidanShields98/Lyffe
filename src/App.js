@@ -9,8 +9,10 @@ import IconButton from "@mui/material/IconButton";
 import "./App.css";
 import { Home } from "./pages/Home";
 import Exercises from "./pages/Exercises";
+import ExerciseDetail from './pages/ExerciseDetail';
 import { Workout } from "./pages/Workout";
 import { User } from "./pages/User";
+import  SignUp  from "./pages/SignUp";
 
 function App() {
   return (
@@ -37,6 +39,7 @@ function App() {
 
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/signup" element={<SignUp />} />
         <Route path="/exercises" element={<Exercises />} />
         <Route path="/workout" element={<Workout />} />
         <Route path="/user" element={<User />} />
