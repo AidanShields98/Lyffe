@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Stack, Typography } from '@mui/material';
+import { Box, Stack } from '@mui/material';
 import Pagination from '@mui/material/Pagination';
 import { exerciseOptions, fetchData } from '../utils/fetchData';
 import ExerciseCard from './ExerciseCard';
@@ -37,7 +37,6 @@ const Exercise = ({ exercises, setExercises, bodyPart }) => {
 
   return (
     <Box id="exercises" sx={{ mt: { lg: '109px'} }} mt="50px" padding= "60px 20px 60px" >
-      {/* <Typography variant="h4" fontWeight="bold" textAlign={"center"} fontSize="1.5" mb="46px">Showing Results</Typography> */}
       <Stack direction="row" sx={{ gap: { lg: '107px', xs: '50px' } }} flexWrap="wrap" justifyContent="center">
       {currentExercises.map((exercise, idx) => (
           <ExerciseCard key={idx} exercise={exercise} />
