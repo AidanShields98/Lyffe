@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { Box } from '@mui/material'
 
-import SignupForm from '../components/SignUpForm';
+import LoginForm from '../components/LoginForm';
 
 const Login = () => {
 
     return (
         <Box>
-           <SignupForm />
+           <LoginForm />
         </Box>
     )
 }
