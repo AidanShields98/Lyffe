@@ -43,14 +43,7 @@
   .exercise-card img {
     height: 326px;
   }
-  
-
-  
-  .search-btn:hover {
-    color: #1976d2 !important;
-    border: 1px solid #1976d2 !important;
-  }
-  
+    
   .exercise-video {
     display: flex;
     flex-direction: column;
@@ -59,11 +52,76 @@
     height: 381px;
     text-decoration: none;
   }
+
   
+/* 
+search Exercises 
+*/
+
+
+.search-stack {
+  align-items: center;
+  margin-top: 37px;
+  justify-content: center;
+  padding: 20px;
+}
+
+.search-box {
+  position: relative;
+  margin-bottom: 72px;  
+}
+
+.search-text{
+  height: 76px;
+  background-color: "#fff";
+  border-radius: 40px;
+}
+
+.search-btn {
+  height: 56px;
+  position: absolute !important;
+  right: 0px;
+}
+
+.search-btn:hover {
+  color: #1976d2 !important;
+  border: 1px solid #1976d2 !important;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* 
+Sign up page 
+*/
+
+
+
+
+
+
+
+
+
+
   @media screen and (max-width:1200px) {
     .detail-image {
       width: 300px;
-      height: 300px;
+      height: 270px;
     }
   
 
@@ -73,6 +131,11 @@
   
   }
   
+
+
+
+
+
   @media screen and (max-width:400px) {
     .exercise-card {
       width: 280px;
