@@ -19,17 +19,38 @@
   ::-webkit-scrollbar {
     width: 0px;
   }
+    
+ 
+  /* 
+  Exercise page
+  */
+
+.exercise-box {
+  margin-top: 50px;
+  padding: 60px 20px 60px;
+}
+
+.exercise-stack {
+  justify-content: center;
+  flex-wrap: wrap;
+
+}
+
+
+
   
-  .detail-image {
-    width: 729px;
-    height: 742px;
-  }
-  
-  .exercise-card {
+
+  /* 
+  Exercise Card
+  */
+
+
+ .exercise-card {
     width: 400px;
     height: 445px;
-    background: #fff;
+    background: #fff !important;
     border-top: 4px solid #1976d2;
+    border-bottom: 4px solid #1976d2;
     border-bottom-left-radius: 20px;
     text-decoration: none;
     display: flex;
@@ -39,21 +60,42 @@
     transform: scale(1, 1);
     transition: 0.3s all ease-in-out;
   }
+
+  .exercise-card:hover {
+  transform: scale(1.1, 1.1);
+}
   
   .exercise-card img {
     height: 326px;
   }
-    
-  .exercise-video {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-    width: 387px;
-    height: 381px;
-    text-decoration: none;
+ 
+  .exercise-card-stack {
+    justify-content: center;
+    align-items: center;
   }
 
-  
+  .exercise-card-button {
+    color: #FFF !important;
+    background-color: #262424 !important;
+    font-size: 14px;
+    border-radius: 15px !important;
+    text-transform: capitalize;
+  }
+
+  .exercise-card-typ {
+    color: black;
+    font-weight: bold !important;
+    margin-top: 10px !important;
+    padding-bottom: 10px;
+    text-transform: capitalize;
+    text-align: center;
+  }
+
+
+
+
+
+
 /* 
 search Exercises 
 */
@@ -81,6 +123,8 @@ search Exercises
   height: 56px;
   position: absolute !important;
   right: 0px;
+  background-color: #1976d2 !important;
+  color: #FFF !important;
 }
 
 .search-btn:hover {
@@ -92,6 +136,34 @@ search Exercises
 
 
 
+
+/* 
+Exercise detail 
+*/
+
+.detail-stack {
+  display: flex;
+  align-items: center;
+  gap: 60px;
+  justify-content: center;
+  padding: 20px;
+  text-align: center;
+}
+
+.detail-image {
+  width: 40%;    
+  height: 742px;
+}
+
+.detail-title {
+  text-transform: capitalize;
+  font-weight: 700;
+}
+
+.detail-stack-inner {
+  align-items: center;
+  gap: 24px;
+}
 
 
 
