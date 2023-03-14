@@ -36,8 +36,8 @@ const Exercise = ({ exercises, setExercises, bodyPart }) => {
     };
 
   return (
-    <Box id="exercises" sx={{ mt: { lg: '109px'} }} mt="50px" padding= "60px 20px 60px" >
-      <Stack direction="row" sx={{ gap: { lg: '107px', xs: '50px' } }} flexWrap="wrap" justifyContent="center">
+    <Box id="exercises" className="exercise-box" sx={{ mt: { lg: '109px'} }}>
+      <Stack  className="exercise-stack"  direction="row" sx={{ gap: { lg: '107px', xs: '50px' } }}>
       {currentExercises.map((exercise, idx) => (
           <ExerciseCard key={idx} exercise={exercise} />
         ))}
@@ -48,10 +48,10 @@ const Exercise = ({ exercises, setExercises, bodyPart }) => {
             color="standard"
             shape="rounded"
             defaultPage={1}
-            count={Math.ceil(exercises.length / exercisesPerPage)}
+            size="medium" 
             page={currentPage}
-            onChange={paginate}
-            size="medium"
+            onChange={paginate}            
+            count={Math.ceil(exercises.length / exercisesPerPage)}
           />
         )}
       </Stack>
