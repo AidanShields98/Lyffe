@@ -1,13 +1,13 @@
 import React from 'react';
 import { Box } from '@mui/material'
 
-import LoginForm from '../components/LoginForm';
+import LoginForm from './components/LoginForm';
 
 const Login = () => {
 
     return (
         <Box>
-           <LoginForm />
+           {/* <LoginForm /> */}
         </Box>
     )
 }
