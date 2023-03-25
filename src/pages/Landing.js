@@ -4,14 +4,13 @@ import Grid from '@mui/material/Grid';
 
 
 export function LandingPage() {
-  const classes = useStyles();
 
   return (
-    <div className={classes.root}>
-      <div className={classes.overlay}>
-        <Container maxWidth="md">
-          <Grid container className={classes.content}>
-            <Grid item xs={12} sm={10} md={10}>
+    <div>
+      <div >
+        <Container >
+          <Grid>
+            <Grid>
             </Grid>
           </Grid>
         </Container>
