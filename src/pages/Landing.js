@@ -1,21 +1,16 @@
-import React from 'react';
-import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
-
+import { Button } from "@material-ui/core";
+import LoginButton from "../components/LoginButton";
 
 export function LandingPage() {
 
   return (
-    <div>
-      <div >
-        <Container >
-          <Grid>
-            <Grid>
-            </Grid>
-          </Grid>
-        </Container>
+    <div className="landing-root">
+      <div className="landing-buttonContainer">
+        <LoginButton className="landing-button"/>
+        <Button className="landing-button" variant="outlined" color="primary">
+          Sign Up
+        </Button>
       </div>
     </div>
   );
 }
-
