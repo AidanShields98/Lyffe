@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "node": "18.14.0",
     "@auth0/auth0-react": "^2.0.1",
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
@@ -13,6 +12,7 @@
     "@mui/styles": "^5.11.13",
     "material-ui-popup-state": "^5.0.4",
     "next": "12.3.1",
+    "node": "18.14.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-horizontal-scrolling-menu": "^2.7.1",
