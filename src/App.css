@@ -25,7 +25,7 @@
  Landing page 
   */
   
-  .landing-root {
+  /* .landing-root {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -42,14 +42,86 @@
     justify-content: space-evenly;
     margin-top: var(--spacing-5);
   }
-  
+  */
   .landing-button {
-    margin: 0 2px;
-    padding: 4px 20px;
-    border-radius: var(--spacing-5);
+  position: absolute;
+  top: 16px;  
+  right: 16px; 
+  } 
+
+  .landing-root {
+    flex-grow: 1;
+  }
+  
+  .landing-hero {
+    background:
+      'url("https://images.unsplash.com/photo-1614850715649-1d0106293bd1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80") no-repeat center center/cover';
+    height: "50vh";
+    display: "flex";
+    justify-content: "center";
+    align-items: "center";
+    flex-direction: "column";
+    color: "white";
+  }
+  
+  .landing-heroLogin {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+
+  }
+  
+  .landing-cardGrid {
+    margin-top: 16px; 
+    margin-bottom: 16px; 
+  }
+  
+  .landing-card {
+    max-width: 500px;
+  }
+  
+  .landing-cardMedia {
+    height: 350px;
+  }
+  
+  .landing-cardContent {
+    flex-grow: 2;
+  }
+  
+
+  .my-component {
+    display: flex;
+    height: 50vh;
+    align-items: center;
+  }
+  
+  .image-container {
+    flex: 0 0 30vw;
+    height: 50vh;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+  
+  .comp-media {
+    height: "50vh";
+    width: "30vw";
+    max-width: "100%";
+  }
+  
+  .text-container {
+    flex: 1;
+    padding: 0 2rem;
+  }
+  
+  .text-container h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  
+  .text-container p {
     font-size: 1.2rem;
-    font-weight: bold;
-    text-transform: uppercase;
+    line-height: 1.5;
   }
   
   
