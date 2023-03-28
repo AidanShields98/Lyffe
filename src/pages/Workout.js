@@ -1,15 +1,12 @@
-import React from 'react'
+import React from "react";
+import CreateWorkoutButton from "../components/CreateWorkoutButton";
 
 export function Workout() {
-    return (
-        <div style={{
-            position: "absolute",
-            top: "50%",
-            left: "50%"
-        }
-            }>
-            <h1>Workout</h1>
-        </div>
-    )
+  return (
+    <div>
+      <CreateWorkoutButton />
+    </div>
+  );
 }
 
+export default Workout;
