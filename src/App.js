@@ -15,6 +15,7 @@ import { User } from "./pages/User";
 import { LandingPage } from "./pages/Landing";
 import { useAuth0 } from '@auth0/auth0-react';
 import LogoutButton from "./components/LogoutButton";
+import WorkoutForm from "./components/WorkoutForm";
 
 function App() {
   const { isAuthenticated } = useAuth0();

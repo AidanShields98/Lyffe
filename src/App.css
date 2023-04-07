@@ -278,7 +278,39 @@ Exercise detail
 Workout Page
 */
 
+.workout {
+   display: "flex";
+    flex-direction: "column";
+    align-items: "center";
+    justify-content: "center";
+    position: "relative";
+}
 
+.workout-form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin: 4px;
+  min-width: 120;
+  margin-bottom: 600;
+}
+
+.workout-form-container {
+  margin-top: 8px;
+}
+
+.workout-row {
+  margin-bottom: 8px;
+}
+
+.workout-label {
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin-top: 16px;
+  margin-bottom: 4px;
+  text-align: center;
+}
 
 
 
