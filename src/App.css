@@ -20,6 +20,10 @@
     width: 0px;
   }
     
+  .Appbar {
+    background-color: #1976d2 !important;
+    color: #FFF !important;
+  }
   
  /*
  Landing page 
@@ -313,8 +317,23 @@ Workout Page
 }
 
 
+.workout-accordion {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 10px auto;
+}
+
+.workout-title {
+  justify-content: center;
+  font-weight: bold;
+}
 
 
+.workout-accordion-details {
+  display: flex !important;
+  justify-content: center !important;
+}
 
 
 /* 
