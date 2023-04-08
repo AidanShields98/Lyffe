@@ -12,42 +12,51 @@ import Exercises from "./pages/Exercises";
 import ExerciseDetail from './pages/ExerciseDetail';
 import { Workout } from "./pages/Workout";
 import { User } from "./pages/User";
-import  SignUp  from "./pages/SignUp";
-import  Login  from "./pages/Login";
+import { LandingPage } from "./pages/Landing";
+import { useAuth0 } from '@auth0/auth0-react';
+import LogoutButton from "./components/LogoutButton";
+import WorkoutForm from "./components/WorkoutForm";
 
 function App() {
+  const { isAuthenticated } = useAuth0();
+
   return (
     <div>
-      <AppBar position="static">
-        <Toolbar>
-          <Typography
-            sx={{
-              textAlign: "center",
-              fontSize: "4vh",
-              flex: 1,
-            }}
-          >
-            Lyffe
-          </Typography>
+      {isAuthenticated ? (
+        <div>
+          <AppBar position="static" className="Appbar">
+            <Toolbar>
+              <Typography
+                sx={{
+                  textAlign: "center",
+                  fontSize: "4vh",
+                  flex: 1,
+                }}
+              >
+                Lyffe
+              </Typography>
 
-          <div>
-            <IconButton aria-label="delete" sx={{ color: "#fff" }} >
-              <LogoutIcon />
-            </IconButton>
-          </div>
-        </Toolbar>
-      </AppBar>
+              <div>
+                <LogoutButton />
+              </div>
+            </Toolbar>
+          </AppBar>
 
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/exercises" element={<Exercises />} />
-        <Route path="/workout" element={<Workout />} />
-        <Route path="/user" element={<User />} />
-        <Route path="/exercise/:id" element={<ExerciseDetail />} />
-      </Routes>
-      <BottomNavigation />
+          <Routes>
+            <Route path="/home" element={<Home />} />
+            <Route path="/exercises" element={<Exercises />} />
+            <Route path="/workout" element={<Workout />} />
+            <Route path="/user" element={<User />} />
+            <Route path="/exercise/:id" element={<ExerciseDetail />} />
+          </Routes>
+
+          <BottomNavigation />
+        </div>
+      ) : (
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+        </Routes>
+      )}
     </div>
   );
 }
