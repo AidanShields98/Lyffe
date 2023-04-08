@@ -1,4 +1,13 @@
 import React, { useState } from "react";
+import {
+  Typography,
+  Grid,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  Button,
+} from "@material-ui/core";
 
 const SelectDays = ({ onDaysSelected }) => {
   const [days, setDays] = useState("");
@@ -13,20 +22,46 @@ const SelectDays = ({ onDaysSelected }) => {
   };
 
   return (
+    <div className="days-form">
+    <Typography variant="h6" align="center">
+      How many days would you like to workout a week?
+    </Typography>
     <form onSubmit={handleSubmit}>
-      <label>
-        How many days would you like to workout a week?
-        <select value={days} onChange={handleChange}>
-          <option value="">Select days</option>
-          <option value="3">3 Fullbody</option>
-          <option value="4">4 Upper Lower Upper Lower</option>
-          <option value="5">5 Upper Lower Push Pull Legs</option>
-          <option value="6">6 Push Pull Legs X2</option>
-        </select>
-      </label>
-      <input type="submit" value="Submit" />
+      <Grid container justify="center">
+        <Grid item xs={10} md={8}>
+          <FormControl className="days-form-con">
+            <InputLabel id="workout-days-label">Select days</InputLabel>
+            <Select
+              labelId="workout-days-label"
+              id="workout-days-select"
+              value={days}
+              onChange={handleChange}
+            >
+              <MenuItem value="">Select days</MenuItem>
+              <MenuItem value="3">3</MenuItem>
+              <MenuItem value="4">4</MenuItem>
+              <MenuItem value="5">5</MenuItem>
+              <MenuItem value="6">6</MenuItem>
+            </Select>
+          </FormControl>
+        </Grid>
+        <Grid item xs={10} md={8}>
+          <Button
+            className="days-submit"
+            variant="contained"
+            color="primary"
+            type="submit"
+            disabled={!days}
+            fullWidth
+          >
+            Submit
+          </Button>
+        </Grid>
+      </Grid>
     </form>
-  );
-};
+  </div>
+);
+}
 
 export default SelectDays;
+

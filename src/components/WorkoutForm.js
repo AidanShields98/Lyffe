@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from "react";
 import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
+import Button from "@material-ui/core/Button";
 
 function WorkoutForm({ numRows = 6, onFormChange }) {
   const [formData, setFormData] = useState(
@@ -23,6 +24,15 @@ function WorkoutForm({ numRows = 6, onFormChange }) {
     },
     [formData, onFormChange]  //updates parent state with new form data prevents unneccessary re renders
   );
+
+  const handleAddRow = () => {
+    if (formData.length < 8) {
+      setFormData((prevFormData) => [
+        ...prevFormData,
+        { exercise: "", sets: "", reps: "", weight: "" },
+      ]);
+    }
+  };
 
   return (
     <div className="workout-root">
@@ -78,8 +88,11 @@ function WorkoutForm({ numRows = 6, onFormChange }) {
                 />
               </Grid>
             </Grid>
-          </div> 
+          </div>
         ))}
+        <Button variant="contained" color="primary" onClick={handleAddRow}>
+          Add Row
+        </Button>
       </form>
     </div>
   );

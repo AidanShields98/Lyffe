@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import SelectDays from "../components/SelectDays";
 import { Button } from "@material-ui/core";
-import { Stack } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 import WorkoutForm from "../components/WorkoutForm";
 import { Accordion, AccordionSummary, AccordionDetails } from "@material-ui/core";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
@@ -24,19 +24,22 @@ export const Workout = () => {
   };
 
   const handleFormSubmit = async () => {
-    // Save all workout data to the server
+    // Save all workout data to the server tbd
   };
 
   return (
     <div>
       {!workoutDays && !showForm ? (
-        <button onClick={() => setShowForm(true)}>Create Workout</button>
+        <div className="no-workout">
+        <Typography variant="h3" gutterBottom > No Workout Data </Typography>
+        <Button className="create-workout-btn" variant="contained" color="primary" onClick={() => setShowForm(true)}>Create Workout</Button>
+        </div>
       ) : null}
       {showForm && !workoutDays ? (
         <SelectDays onDaysSelected={onDaysSelected} />
       ) : null}
       {workoutDays ? (
-        <Stack spacing={2} direction="column" alignItems="center">
+        <Stack spacing={2} direction="column" alignItems="center" mt={10}>
           {Array.from({ length: workoutDays }, (_, idx) => (
             <Accordion key={idx} className="workout-accordion" onChange={() => setAccordionDisplayed(true)}>
               <AccordionSummary expandIcon={<ExpandMoreIcon />} className="workout-title">
