@@ -20,6 +20,10 @@
     width: 0px;
   }
     
+  .Appbar {
+    background-color: #1976d2 !important;
+    color: #FFF !important;
+  }
   
  /*
  Landing page 
@@ -274,13 +278,87 @@ Exercise detail
 
 
 
+/* 
+Workout Page
+*/
+
+.workout {
+   display: "flex";
+    flex-direction: "column";
+    align-items: "center";
+    justify-content: "center";
+    position: "relative";
+}
+
+.workout-form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin: 4px;
+  min-width: 120;
+  margin-bottom: 600;
+}
+
+.workout-form-container {
+  margin-top: 8px;
+}
+
+.workout-row {
+  margin-bottom: 8px;
+}
+
+.workout-label {
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin-top: 16px;
+  margin-bottom: 4px;
+  text-align: center;
+}
 
 
+.workout-accordion {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 10px auto;
+}
+
+.workout-title {
+  justify-content: center;
+  font-weight: bold;
+}
 
 
+.workout-accordion-details {
+  display: flex !important;
+  justify-content: center !important;
+}
 
+.no-workout {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 43vh;
+}
 
+.days-form{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 43vh;
+  margin: 0 auto;
+}
 
+.days-form-con {
+  width: 100% !important;
+}
+
+.days-submit {
+  margin-top: 16px;
+}
 
 /* 
 Sign up page 
