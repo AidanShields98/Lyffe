@@ -41,8 +41,7 @@ const verifyAccessTokenAndGetSub = async (accessToken) => {
   }
 };
 
-// Handle POST requests to save workout plans to the database
-router.post('/', async (req, res) => {
+router.post('/workout', async (req, res) => {
   try {
     // Extract the access token from the Authorization header
     const authHeader = req.headers.authorization;
@@ -58,6 +57,9 @@ router.post('/', async (req, res) => {
 
     // Use the user's sub to save the workout plan to the MongoDB database
     const workoutPlanData = req.body;
+
+    console.log('Received workout data:', workoutPlanData);
+
     const workoutPlan = new WorkoutPlan({
       userId: sub,
       days: workoutPlanData.days,
@@ -66,21 +68,7 @@ router.post('/', async (req, res) => {
     await workoutPlan.save();
 
     res.status(200).send('Workout plan saved successfully');
-  } catch (error) {
-    console.error(error);
-    res.status(500).send('Server error');
-  }
-});
-
-// Handle GET requests to retrieve workout plans from the database
-router.get('/:userId', async (req, res) => {
-  try {
-    const userId = req.params.userId;
-
-    // Use the user's ID to find all workout plans with that user ID as a reference
-    const workoutPlans = await WorkoutPlan.find({ userId });
-
-    res.status(200).send(workoutPlans);
+    console.log('Workout plan saved successfully');
   } catch (error) {
     console.error(error);
     res.status(500).send('Server error');

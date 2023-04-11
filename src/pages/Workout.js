@@ -6,14 +6,17 @@ import WorkoutTable from "../components/WorkoutTable";
 
 const fetchUserWorkout = async (userId) => {
   try {
-    const response = await fetch(`/api/workouts/${userId}`);
+    const response = await fetch(`/workout/${userId}`);
 
     if (!response.ok) {
       console.error('Error fetching user workout:', response.status);
       return null;
     }
 
-    return await response.json();
+    const data = await response.json();
+    console.log('User workout data:', data);
+    return data;
+
   } catch (error) {
     console.error('Error fetching user workout:', error);
     return null;
@@ -25,16 +28,17 @@ export const Workout = () => {
   const [userWorkout, setUserWorkout] = useState(null);
   const [showCreateWorkout, setShowCreateWorkout] = useState(false);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const fetchedWorkout = await fetchUserWorkout(user.sub);
-      setUserWorkout(fetchedWorkout);
-    };
+ useEffect(() => {
 
-    if (user?.sub) {
-      fetchData();
-    }
-  }, [user]);
+  const fetchData = async () => {
+    const fetchedWorkout = await fetchUserWorkout(user.sub);
+    setUserWorkout(fetchedWorkout);
+  };
+
+  if (user?.sub) {
+    fetchData();
+  }
+}, [user]);
 
   const handleWorkoutCreated = () => {
     // Fetch the updated user workout and update the state
@@ -61,7 +65,7 @@ export const Workout = () => {
       )}
       {!showCreateWorkout && userWorkout && (
         <div>
-         { /* create a WorkoutTable component*/ }
+          <WorkoutTable workoutData={userWorkout} />
         </div>
       )}
       {showCreateWorkout && (

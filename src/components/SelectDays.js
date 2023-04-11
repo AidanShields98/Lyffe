@@ -27,7 +27,7 @@ const SelectDays = ({ onDaysSelected }) => {
       How many days would you like to workout a week?
     </Typography>
     <form onSubmit={handleSubmit}>
-      <Grid container justifyContent="center" fullWidth>
+      <Grid container justifyContent="center">
         <Grid item xs={10} md={8}>
           <FormControl className="days-form-con">
             <InputLabel id="workout-days-label">Select days</InputLabel>

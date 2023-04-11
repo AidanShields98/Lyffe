@@ -15,7 +15,7 @@ db.once("open", () => console.log("connected to db"));
 app.use(express.json());
 
 const WorkoutRouter = require('./routes/workouts');
-app.use('/api/workouts', WorkoutRouter);
+app.use('/workout', WorkoutRouter);
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Server listening on port ${port}`));
