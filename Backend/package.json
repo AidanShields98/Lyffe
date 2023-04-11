@@ -1,0 +1,20 @@
+{
+  "name": "lyffe-back",
+  "version": "1.0.0",
+  "description": "backend for lyffe",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon server.js"
+  },
+  "author": "aidan",
+  "license": "ISC",
+  "dependencies": {
+    "auth0": "^3.3.0",
+    "express": "^4.18.2",
+    "mongoose": "^7.0.3"
+  },
+  "devDependencies": {
+    "dotenv": "^16.0.3",
+    "nodemon": "^2.0.22"
+  }
+}

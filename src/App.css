@@ -341,6 +341,7 @@ Workout Page
   justify-content: center;
   align-items: center;
   height: 43vh;
+  margin-top: calc(100px + 1vh);
 }
 
 .days-form{
@@ -348,7 +349,6 @@ Workout Page
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 43vh;
   margin: 0 auto;
 }
 

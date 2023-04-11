@@ -1,0 +1,12 @@
+GET http://127.0.0.1:3000/workouts
+
+###
+
+GET http://127.0.0.1:3000/workouts/12
+
+###
+POST  http://127.0.0.1:3000/workouts/
+
+{
+    
+}
