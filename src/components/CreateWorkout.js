@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import SelectDays from "../components/SelectDays";
 import WorkoutForm from "../components/WorkoutForm";
@@ -10,27 +10,42 @@ export const CreateWorkout = ({ onWorkoutCreated }) => {
   const { getAccessTokenSilently, user } = useAuth0();
   const [workoutDays, setWorkoutDays] = useState(null);
   const [workoutData, setWorkoutData] = useState([]);
-
+  const [formData, setFormData] = useState([
+    { name: "", reps: 0, sets: 0, weight: 0 }
+  ]);
+  
   const onDaysSelected = (days) => {
     setWorkoutDays(days);
   };
-
-  const handleFormChange = (workoutIndex, formData) => {
-    const newWorkoutData = [...workoutData];
-    newWorkoutData[workoutIndex] = formData;
-    setWorkoutData(newWorkoutData);
-  };
+  
+  const handleFormChange = useCallback(
+    (event, rowIndex, field) => {
+      const newFormData = [...formData];
+      newFormData[rowIndex][field] = event.target.value;
+      setFormData(newFormData);
+      
+      const onFormChange = (workoutIndex, formData) => {
+        const newWorkoutData = [...workoutData];
+        newWorkoutData[workoutIndex] = formData;
+        setWorkoutData(newWorkoutData);
+      };
+      
+      onFormChange(rowIndex, newFormData); // Add rowIndex as the first argument
+    },
+    [formData, workoutData]
+  );
+  
+  
 
   const handleFormSubmit = async () => {
-    console.log('Form submitted');
     try {
       const accessToken = await getAccessTokenSilently();
-      console.log('Access token:', accessToken);
       const workoutDataToSave = {
         userId: user.sub,
+        days: workoutDays,
         workouts: workoutData,
       };
-      await fetch('/workout', {
+      await fetch('http://localhost:5000/workout/workout', {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${accessToken}`,
