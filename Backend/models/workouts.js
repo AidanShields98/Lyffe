@@ -7,10 +7,9 @@ const exerciseSchema = new mongoose.Schema({
   weight: { type: Number, required: true },
 });
 
-const workoutSchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  exercises: [exerciseSchema],
-});
+
+
+const Workout = mongoose.model('Workout', workoutSchema);
 
 const workoutPlanSchema = new mongoose.Schema({
   userId: { type: String, required: true },
@@ -25,6 +24,14 @@ const workoutPlanSchema = new mongoose.Schema({
     },
   },
   workouts: [workoutSchema],
+});
+
+const workoutSchema = new mongoose.Schema({
+  userId: {
+    type: String,
+    required: true,
+  },
+  workoutData: workoutPlanSchema,
 });
 
 module.exports = mongoose.model('WorkoutPlan', workoutPlanSchema);

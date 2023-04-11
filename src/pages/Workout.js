@@ -1,62 +1,72 @@
-import React, { useState } from "react";
-import SelectDays from "../components/SelectDays";
-import { Button } from "@material-ui/core";
-import { Stack, Typography } from "@mui/material";
-import WorkoutForm from "../components/WorkoutForm";
-import { Accordion, AccordionSummary, AccordionDetails } from "@material-ui/core";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import React, { useState, useEffect } from "react";
+import { Typography, Button } from "@mui/material";
+import CreateWorkout from "../components/CreateWorkout";
+import { useAuth0 } from "@auth0/auth0-react";
+import WorkoutTable from "../components/WorkoutTable";
+
+const fetchUserWorkout = async (userId) => {
+  try {
+    const response = await fetch(`/api/workouts/${userId}`);
+
+    if (!response.ok) {
+      console.error('Error fetching user workout:', response.status);
+      return null;
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error('Error fetching user workout:', error);
+    return null;
+  }
+};
 
 export const Workout = () => {
-  const [workoutDays, setWorkoutDays] = useState(null);
-  const [showForm, setShowForm] = useState(false);
-  const [workoutData, setWorkoutData] = useState([]);
-  const [accordionDisplayed, setAccordionDisplayed] = useState(false);
+  const { user } = useAuth0();
+  const [userWorkout, setUserWorkout] = useState(null);
+  const [showCreateWorkout, setShowCreateWorkout] = useState(false);
 
-  const onDaysSelected = (days) => {
-    setWorkoutDays(days);
-    setShowForm(true);
-  };
+  useEffect(() => {
+    const fetchData = async () => {
+      const fetchedWorkout = await fetchUserWorkout(user.sub);
+      setUserWorkout(fetchedWorkout);
+    };
 
-  const handleFormChange = (workoutIndex, formData) => {
-    const newWorkoutData = [...workoutData];
-    newWorkoutData[workoutIndex] = formData;
-    setWorkoutData(newWorkoutData);
-  };
+    if (user?.sub) {
+      fetchData();
+    }
+  }, [user]);
 
-  const handleFormSubmit = async () => {
-    // Save all workout data to the server tbd
+  const handleWorkoutCreated = () => {
+    // Fetch the updated user workout and update the state
+    const fetchData = async () => {
+      const fetchedWorkout = await fetchUserWorkout(user.sub);
+      setUserWorkout(fetchedWorkout);
+    };
+
+    setShowCreateWorkout(false);
+    fetchData();
   };
 
   return (
     <div>
-      {!workoutDays && !showForm ? (
+      {!userWorkout && !showCreateWorkout && (
         <div className="no-workout">
-        <Typography variant="h3" gutterBottom > No Workout Data </Typography>
-        <Button className="create-workout-btn" variant="contained" color="primary" onClick={() => setShowForm(true)}>Create Workout</Button>
+          <Typography variant="h3" gutterBottom>
+            No Workout Data
+          </Typography>
+          <Button variant="contained" onClick={() => setShowCreateWorkout(true)}>
+            Create Workout
+          </Button>
         </div>
-      ) : null}
-      {showForm && !workoutDays ? (
-        <SelectDays onDaysSelected={onDaysSelected} />
-      ) : null}
-      {workoutDays ? (
-        <Stack spacing={2} direction="column" alignItems="center" mt={10}>
-          {Array.from({ length: workoutDays }, (_, idx) => (
-            <Accordion key={idx} className="workout-accordion" onChange={() => setAccordionDisplayed(true)}>
-              <AccordionSummary expandIcon={<ExpandMoreIcon />} className="workout-title">
-                Workout {idx + 1}
-              </AccordionSummary>
-              <AccordionDetails className="workout-accordion-details">
-                <WorkoutForm workoutIndex={idx} onFormChange={handleFormChange} />
-              </AccordionDetails>
-            </Accordion>
-          ))}
-          {accordionDisplayed && (
-            <Button variant="contained" color="primary" onClick={handleFormSubmit}>
-              Save Workouts
-            </Button>
-          )}
-        </Stack>
-      ) : null}
+      )}
+      {!showCreateWorkout && userWorkout && (
+        <div>
+         { /* create a WorkoutTable component*/ }
+        </div>
+      )}
+      {showCreateWorkout && (
+        <CreateWorkout onWorkoutCreated={handleWorkoutCreated} />
+      )}
     </div>
   );
 };

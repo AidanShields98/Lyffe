@@ -1,43 +1,47 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
-const { ManagementClient } = require('auth0');
+const axios = require('axios');
 
 const workoutSchema = new mongoose.Schema({
-  userId: {
-    type: String,
+  name: { type: String, required: true },
+  reps: { type: Number, required: true },
+  sets: { type: Number, required: true },
+  weight: { type: Number, required: true },
+});
+
+const workoutPlanSchema = new mongoose.Schema({
+  userId: { type: String, required: true },
+  days: {
+    type: Number,
     required: true,
+    validate: {
+      validator: function (value) {
+        return value >= 3 && value <= 6;
+      },
+      message: 'Days must be a number between 3 and 6',
+    },
   },
-  workoutData: {
-    // Define the schema for the workout data here
-  },
+  workouts: [[workoutSchema]],
 });
 
-const Workout = mongoose.model('Workout', workoutSchema);
+const WorkoutPlan = mongoose.model('WorkoutPlan', workoutPlanSchema);
 
-const managementClient = new ManagementClient({
-  domain: 'lyffe.eu.auth0.com',
-  clientId: 'Tnzvjz29Y4d5RqjvTVt9gBIjQLIQLj5s',
-  clientSecret: '0UmtmNYUsD4nIdFvh018D970LfNeaPbbaakNpz8qPWYzq1vbby4sXXLrGlIBoW-H',
-});
-
-const getManagementApiToken = async (accessToken) => {
+const verifyAccessTokenAndGetSub = async (accessToken) => {
   try {
-    const managementApiToken = await managementClient.getAccessToken({
-      audience: `https://${managementClient.domain}/api/v2/`,
-      scope: 'read:users',
-      client_id: managementClient.clientId,
-      client_secret: managementClient.clientSecret,
-      token: accessToken,
+    const response = await axios.get(`https://${process.env.AUTH0_DOMAIN}/userinfo`, {
+      headers: { Authorization: `Bearer ${accessToken}` },
     });
-    return managementApiToken.access_token;
+
+    const { sub } = response.data;
+    return sub;
   } catch (error) {
-    console.error(error);
+    console.error('Error verifying access token:', error);
     return null;
   }
 };
 
-// Handle POST requests to save workouts to the database
+// Handle POST requests to save workout plans to the database
 router.post('/', async (req, res) => {
   try {
     // Extract the access token from the Authorization header
@@ -45,33 +49,38 @@ router.post('/', async (req, res) => {
     const accessToken = authHeader.split(' ')[1];
 
     // Use the Auth0 Management API to verify the access token and get the user's sub
-    const managementApiToken = await getManagementApiToken(accessToken);
-    const { sub } = await managementClient.getProfile(accessToken);
+    const sub = await verifyAccessTokenAndGetSub(accessToken);
 
-    // Use the user's sub to save the workout to the MongoDB database
-    const workoutData = req.body;
-    const workout = new Workout({
+    if (!sub) {
+      res.status(401).send('Unauthorized');
+      return;
+    }
+
+    // Use the user's sub to save the workout plan to the MongoDB database
+    const workoutPlanData = req.body;
+    const workoutPlan = new WorkoutPlan({
       userId: sub,
-      workoutData,
+      days: workoutPlanData.days,
+      workouts: workoutPlanData.workouts,
     });
-    await workout.save();
+    await workoutPlan.save();
 
-    res.status(200).send('Workout saved successfully');
+    res.status(200).send('Workout plan saved successfully');
   } catch (error) {
     console.error(error);
     res.status(500).send('Server error');
   }
 });
 
-// Handle GET requests to retrieve workouts from the database
+// Handle GET requests to retrieve workout plans from the database
 router.get('/:userId', async (req, res) => {
   try {
     const userId = req.params.userId;
 
-    // Use the user's ID to find all workouts with that user ID as a reference
-    const workouts = await Workout.find({ userId });
+    // Use the user's ID to find all workout plans with that user ID as a reference
+    const workoutPlans = await WorkoutPlan.find({ userId });
 
-    res.status(200).send(workouts);
+    res.status(200).send(workoutPlans);
   } catch (error) {
     console.error(error);
     res.status(500).send('Server error');
