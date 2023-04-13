@@ -16,10 +16,7 @@ db.once("open", () => console.log("connected to db"));
 app.use(express.json());
 app.use(cors());
 
-app.use((req, res, next) => {
-  console.log(`[${new Date().toISOString()}] ${req.method} ${req.path}`);
-  next();
-});
+
 
 const WorkoutRouter = require('./routes/workouts');
 app.use('/workout', WorkoutRouter);

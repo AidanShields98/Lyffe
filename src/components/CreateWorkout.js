@@ -11,31 +11,19 @@ export const CreateWorkout = ({ onWorkoutCreated }) => {
   const [workoutDays, setWorkoutDays] = useState(null);
   const [workoutData, setWorkoutData] = useState([]);
   const [formData, setFormData] = useState([
-    { name: "", reps: 0, sets: 0, weight: 0 }
+    { exercise: "", reps: 0, sets: 0, weight: 0 }
   ]);
   
   const onDaysSelected = (days) => {
     setWorkoutDays(days);
   };
   
-  const handleFormChange = useCallback(
-    (event, rowIndex, field) => {
-      const newFormData = [...formData];
-      newFormData[rowIndex][field] = event.target.value;
-      setFormData(newFormData);
-      
-      const onFormChange = (workoutIndex, formData) => {
-        const newWorkoutData = [...workoutData];
-        newWorkoutData[workoutIndex] = formData;
-        setWorkoutData(newWorkoutData);
-      };
-      
-      onFormChange(rowIndex, newFormData); // Add rowIndex as the first argument
-    },
-    [formData, workoutData]
-  );
-  
-  
+
+  const handleWorkoutFormChange = (workoutIndex, formData) => {
+    const newWorkoutData = [...workoutData];
+    newWorkoutData[workoutIndex] = formData;
+    setWorkoutData(newWorkoutData);
+  };
 
   const handleFormSubmit = async () => {
     try {
@@ -45,7 +33,7 @@ export const CreateWorkout = ({ onWorkoutCreated }) => {
         days: workoutDays,
         workouts: workoutData,
       };
-      await fetch('http://localhost:5000/workout/workout', {
+      await fetch(`${process.env.REACT_APP_API_URL}/workout/addworkout`, {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -69,7 +57,10 @@ export const CreateWorkout = ({ onWorkoutCreated }) => {
               Workout {idx + 1}
             </AccordionSummary>
             <AccordionDetails className="workout-accordion-details">
-              <WorkoutForm workoutIndex={idx} onFormChange={handleFormChange} />
+            <WorkoutForm
+  key={idx}
+  onFormChange={(formData) => handleWorkoutFormChange(idx, formData)}
+/>
             </AccordionDetails>
           </Accordion>
         ))}

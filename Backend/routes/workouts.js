@@ -2,30 +2,7 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const axios = require('axios');
-
-const workoutSchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  reps: { type: Number, required: true },
-  sets: { type: Number, required: true },
-  weight: { type: Number, required: true },
-});
-
-const workoutPlanSchema = new mongoose.Schema({
-  userId: { type: String, required: true },
-  days: {
-    type: Number,
-    required: true,
-    validate: {
-      validator: function (value) {
-        return value >= 3 && value <= 6;
-      },
-      message: 'Days must be a number between 3 and 6',
-    },
-  },
-  workouts: [[workoutSchema]],
-});
-
-const WorkoutPlan = mongoose.model('WorkoutPlan', workoutPlanSchema);
+const WorkoutPlan = require('../models/workouts');
 
 const verifyAccessTokenAndGetSub = async (accessToken) => {
   try {
@@ -41,7 +18,7 @@ const verifyAccessTokenAndGetSub = async (accessToken) => {
   }
 };
 
-router.post('/workout', async (req, res) => {
+router.post('/addworkout', async (req, res) => {
   try {
     // Extract the access token from the Authorization header
     const authHeader = req.headers.authorization;
@@ -74,5 +51,27 @@ router.post('/workout', async (req, res) => {
     res.status(500).send('Server error');
   }
 });
+
+
+router.get('/:userId', async (req, res) => {
+  try {
+    const userId = req.params.userId;
+
+    // Fetch the workout plan associated with the user ID from the MongoDB database
+    const workoutPlan = await WorkoutPlan.findOne({ userId });
+
+    if (!workoutPlan) {
+      res.status(404).send('Workout plan not found');
+      return;
+    }
+
+    // Send the workout plan data as a JSON response
+    res.status(200).json(workoutPlan);
+  } catch (error) {
+    console.error('Error fetching user workout:', error);
+    res.status(500).send('Server error');
+  }
+});
+
 
 module.exports = router;
