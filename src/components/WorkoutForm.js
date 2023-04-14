@@ -15,15 +15,12 @@ function WorkoutForm({ numRows = 6, onFormChange }) {
       }))
   );
 
-  const handleFormChange = useCallback(
-    (event, rowIndex, field) => {
-      const newFormData = [...formData];
-      newFormData[rowIndex][field] = event.target.value;
-      setFormData(newFormData);
-      onFormChange(newFormData);
-    },
-    [formData, onFormChange]  //updates parent state with new form data prevents unneccessary re renders
-  );
+  const handleInputChange = (event, rowIndex, field) => {
+    const newFormData = [...formData];
+    newFormData[rowIndex][field] = event.target.value;
+    setFormData(newFormData);
+    onFormChange(newFormData);
+  };
 
   const handleAddRow = () => {
     if (formData.length < 8) {
@@ -46,7 +43,7 @@ function WorkoutForm({ numRows = 6, onFormChange }) {
                   variant="outlined"
                   value={formData[rowIndex]?.exercise || ""}
                   onChange={(event) =>
-                    handleFormChange(event, rowIndex, "exercise")
+                    handleInputChange(event, rowIndex, "exercise")
                   }
                   fullWidth
                 />
@@ -58,7 +55,7 @@ function WorkoutForm({ numRows = 6, onFormChange }) {
                   variant="outlined"
                   value={formData[rowIndex]?.sets || ""}
                   onChange={(event) =>
-                    handleFormChange(event, rowIndex, "sets")
+                    handleInputChange(event, rowIndex, "sets")
                   }
                   fullWidth
                 />
@@ -70,7 +67,7 @@ function WorkoutForm({ numRows = 6, onFormChange }) {
                   variant="outlined"
                   value={formData[rowIndex]?.reps || ""}
                   onChange={(event) =>
-                    handleFormChange(event, rowIndex, "reps")
+                    handleInputChange(event, rowIndex, "reps")
                   }
                   fullWidth
                 />
@@ -82,7 +79,7 @@ function WorkoutForm({ numRows = 6, onFormChange }) {
                   variant="outlined"
                   value={formData[rowIndex]?.weight || ""}
                   onChange={(event) =>
-                    handleFormChange(event, rowIndex, "weight")
+                    handleInputChange(event, rowIndex, "weight")
                   }
                   fullWidth
                 />

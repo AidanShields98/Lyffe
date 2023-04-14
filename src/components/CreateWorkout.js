@@ -13,16 +13,34 @@ export const CreateWorkout = ({ onWorkoutCreated }) => {
   const [formData, setFormData] = useState([
     { exercise: "", reps: 0, sets: 0, weight: 0 }
   ]);
-  
+
   const onDaysSelected = (days) => {
     setWorkoutDays(days);
   };
-  
 
-  const handleWorkoutFormChange = (workoutIndex, formData) => {
-    const newWorkoutData = [...workoutData];
-    newWorkoutData[workoutIndex] = formData;
-    setWorkoutData(newWorkoutData);
+  const handleFormChange = useCallback(
+    (event, rowIndex, field) => {
+      const newFormData = [...formData];
+      newFormData[rowIndex][field] = event.target.value;
+      setFormData(newFormData);
+
+      const onFormChange = (workoutIndex, formData) => {
+        const newWorkoutData = [...workoutData];
+        newWorkoutData[workoutIndex] = formData;
+        setWorkoutData(newWorkoutData);
+      };
+
+      onFormChange(rowIndex, newFormData); // Add rowIndex as the first argument
+    },
+    [formData, workoutData]
+  );
+
+  const handleWorkoutFormChange = (formData, workoutIndex) => {
+    setWorkoutData((prevWorkoutData) => {
+      const newWorkoutData = [...prevWorkoutData];
+      newWorkoutData[workoutIndex] = formData;
+      return newWorkoutData;
+    });
   };
 
   const handleFormSubmit = async () => {
@@ -46,7 +64,7 @@ export const CreateWorkout = ({ onWorkoutCreated }) => {
       console.error('Error saving workout:', error);
     }
   };
- 
+
   return (
     <Stack spacing={2} direction="column" alignItems="center" mt={10}>
       {!workoutDays && <SelectDays onDaysSelected={onDaysSelected} />}
@@ -57,10 +75,8 @@ export const CreateWorkout = ({ onWorkoutCreated }) => {
               Workout {idx + 1}
             </AccordionSummary>
             <AccordionDetails className="workout-accordion-details">
-            <WorkoutForm
-  key={idx}
-  onFormChange={(formData) => handleWorkoutFormChange(idx, formData)}
-/>
+              <WorkoutForm key={idx}
+              onFormChange={(formData) => handleWorkoutFormChange(formData, idx)} />
             </AccordionDetails>
           </Accordion>
         ))}
