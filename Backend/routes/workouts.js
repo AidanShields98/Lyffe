@@ -2,7 +2,8 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const axios = require('axios');
-const WorkoutPlan = require('../models/workouts');
+const { WorkoutPlan, Workout } = require('../models/workouts');
+
 
 const verifyAccessTokenAndGetSub = async (accessToken) => {
   try {
@@ -32,16 +33,19 @@ router.post('/addworkout', async (req, res) => {
       return;
     }
 
-    // Use the user's sub to save the workout plan to the MongoDB database
     const workoutPlanData = req.body;
 
     console.log('Received workout data:', workoutPlanData);
 
+    console.log('Workouts before creating instance:', workoutPlanData.workouts);
+
     const workoutPlan = new WorkoutPlan({
       userId: sub,
-      days: workoutPlanData.days,
-      workouts: workoutPlanData.workouts,
+      days: Number(workoutPlanData.days),
+      workouts: workoutPlanData.workouts.map(day => day.map(workout => new Workout(workout))),
     });
+
+    console.log('Workouts after creating instance:', workoutPlan.workouts);
     await workoutPlan.save();
 
     res.status(200).send('Workout plan saved successfully');
@@ -57,7 +61,6 @@ router.get('/:userId', async (req, res) => {
   try {
     const userId = req.params.userId;
 
-    // Fetch the workout plan associated with the user ID from the MongoDB database
     const workoutPlan = await WorkoutPlan.findOne({ userId });
 
     if (!workoutPlan) {
@@ -65,10 +68,58 @@ router.get('/:userId', async (req, res) => {
       return;
     }
 
-    // Send the workout plan data as a JSON response
     res.status(200).json(workoutPlan);
   } catch (error) {
     console.error('Error fetching user workout:', error);
+    res.status(500).send('Server error');
+  }
+});
+
+router.put('/:userId/:workoutId', async (req, res) => {
+  try {
+    const authHeader = req.headers.authorization;
+    const accessToken = authHeader.split(' ')[1];
+
+    const sub = await verifyAccessTokenAndGetSub(accessToken);
+
+    if (!sub) {
+      res.status(401).send('Unauthorized');
+      return;
+    }
+
+    const { userId, workoutId } = req.params;
+    const workoutData = req.body;
+
+    console.log(`Updating workout ${workoutId} for user ${userId} with data:`, workoutData);
+
+    const workoutPlan = await WorkoutPlan.findOne({ userId });
+
+    if (!workoutPlan) {
+      res.status(404).send('Workout plan not found');
+      return;
+    }
+
+    const workoutIndex = workoutPlan.workouts.findIndex((workout) => workout._id == workoutId);
+    if (workoutIndex === -1) {
+      res.status(404).send('Workout not found');
+      return;
+    }
+
+    Object.values(workoutData).forEach((exerciseData) => {
+      const exerciseIndex = workoutPlan.workouts[workoutIndex].findIndex((exercise) => exercise._id == exerciseData._id);
+      if (exerciseIndex === -1) {
+        console.warn(`Exercise ${exerciseData._id} not found in workout ${workoutId}`);
+        return;
+      }
+      workoutPlan.workouts[workoutIndex][exerciseIndex] = exerciseData;
+    });
+
+    await workoutPlan.save();
+
+    res.status(200).send('Workout updated successfully');
+    console.log('Workout updated successfully');
+  } catch (error) {
+    console.error(error);
     res.status(500).send('Server error');
   }
 });

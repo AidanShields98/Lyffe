@@ -21,24 +21,23 @@ function App() {
     <div>
       {isAuthenticated ? (
         <div>
-          <AppBar position="static" className="Appbar">
-            <Toolbar>
-              <Typography
-                sx={{
-                  textAlign: "center",
-                  fontSize: "4vh",
-                  flex: 1,
-                }}
-              >
-                Lyffe
-              </Typography>
-
-              <div>
-                <LogoutButton />
-              </div>
-            </Toolbar>
-          </AppBar>
-
+        <AppBar position="static" className="Appbar">
+          <Toolbar sx={{ textAlign: "center" }}>
+            <Typography
+              sx={{
+                fontSize: "4vh !important",
+                flex: 1,
+              }}
+            >
+              Lyffe
+            </Typography>
+      
+            <div>
+              <LogoutButton />
+            </div>
+          </Toolbar>
+        </AppBar>
+      
           <Routes>
             <Route path="/home" element={<Home />} />
             <Route path="/exercises" element={<Exercises />} />
