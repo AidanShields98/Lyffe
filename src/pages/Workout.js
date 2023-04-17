@@ -66,7 +66,7 @@ export const Workout = () => {
       {userWorkout && (
         // Render the WorkoutTable component if there's a workout
         <div>
-          <WorkoutTable workoutData={userWorkout.workouts} />
+          <WorkoutTable workoutData={userWorkout.workouts} userId={user.sub}  />
         </div>
       )}
       {showCreateWorkout && (
