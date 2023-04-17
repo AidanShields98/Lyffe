@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const axios = require('axios');
+const { v4: uuidv4 } = require('uuid');
 
 const workoutSchema = new mongoose.Schema({
   exercise: { type: String, required: true },
@@ -22,8 +23,9 @@ const workoutPlanSchema = new mongoose.Schema({
       message: 'Days must be a number between 3 and 6',
     },
   },
-  workouts: [[workoutSchema]],
+  workouts: { type: Map, of: [workoutSchema] },
 });
+
 
 const WorkoutPlan = mongoose.model('WorkoutPlan', workoutPlanSchema);
 
@@ -60,10 +62,14 @@ router.post('/addworkout', async (req, res) => {
 
     console.log('Received workout data:', workoutPlanData);
 
+    const workoutsMap = new Map(
+      workoutPlanData.workouts.map((workout) => [uuidv4(), workout])
+    );
+
     const workoutPlan = new WorkoutPlan({
       userId: sub,
       days: workoutPlanData.days,
-      workouts: workoutPlanData.workouts,
+      workouts: workoutsMap,
     });
     await workoutPlan.save();
 
@@ -119,21 +125,17 @@ router.put('/:userId/:workoutId', async (req, res) => {
       return;
     }
 
-    const workoutIndex = workoutPlan.workouts.findIndex((workout) => workout._id == workoutId);
-    if (workoutIndex === -1) {
+    if (!workoutPlan.workouts.has(workoutId)) {
       res.status(404).send('Workout not found');
       return;
     }
 
-    Object.values(workoutData).forEach((exerciseData) => {
-      const exerciseIndex = workoutPlan.workouts[workoutIndex].findIndex((exercise) => exercise._id == exerciseData._id);
-      if (exerciseIndex === -1) {
-        console.warn(`Exercise ${exerciseData._id} not found in workout ${workoutId}`);
-        return;
-      }
-      workoutPlan.workouts[workoutIndex][exerciseIndex] = exerciseData;
+
+    const updatedWorkout = workoutPlan.workouts.get(workoutId).map((exercise, index) => {
+      return workoutData[index] ? workoutData[index] : exercise;
     });
 
+    workoutPlan.workouts.set(workoutId, updatedWorkout);
     await workoutPlan.save();
 
     res.status(200).send('Workout updated successfully');

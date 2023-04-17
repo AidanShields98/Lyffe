@@ -10,30 +10,11 @@ export const CreateWorkout = ({ onWorkoutCreated }) => {
   const { getAccessTokenSilently, user } = useAuth0();
   const [workoutDays, setWorkoutDays] = useState(null);
   const [workoutData, setWorkoutData] = useState([]);
-  const [formData, setFormData] = useState([
-    { exercise: "", reps: 0, sets: 0, weight: 0 }
-  ]);
 
   const onDaysSelected = (days) => {
     setWorkoutDays(days);
   };
 
-  const handleFormChange = useCallback(
-    (event, rowIndex, field) => {
-      const newFormData = [...formData];
-      newFormData[rowIndex][field] = event.target.value;
-      setFormData(newFormData);
-
-      const onFormChange = (workoutIndex, formData) => {
-        const newWorkoutData = [...workoutData];
-        newWorkoutData[workoutIndex] = formData;
-        setWorkoutData(newWorkoutData);
-      };
-
-      onFormChange(rowIndex, newFormData); // Add rowIndex as the first argument
-    },
-    [formData, workoutData]
-  );
 
   const handleWorkoutFormChange = (formData, workoutIndex) => {
     setWorkoutData((prevWorkoutData) => {

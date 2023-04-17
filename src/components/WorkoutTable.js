@@ -9,15 +9,16 @@ function WorkoutTable({ workoutData }) {
    
   };
 
+  
   return (
     <div className="table-root">
-      {workoutData.map((workout, workoutIdx) => (
+        {Object.entries(workoutData).map(([workoutId, exercises], workoutIdx) => (
         <div key={workoutIdx} className="table-row">
           <Typography variant="h5" className="workout-heading">
             Workout {workoutIdx + 1}
             <IconButton
               aria-label="edit"
-              onClick={() => handleEdit(workout[0])}
+              onClick={() => handleEdit(exercises[0])}
             >
               <EditIcon />
             </IconButton>
@@ -35,7 +36,7 @@ function WorkoutTable({ workoutData }) {
             <Grid item xs={4} md={3} className="table-grid table-grid-header">
               <Typography variant="subtitle1">Weight (kg)</Typography>
             </Grid>
-            {Object.values(workout).map((exercise, rowIndex) => {
+            {Object.values(exercises).map((exercise, rowIndex) => {
               if (typeof exercise === "object") {
                 return (
                   <React.Fragment key={rowIndex}>
