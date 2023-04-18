@@ -146,5 +146,35 @@ router.put('/:userId/:workoutId', async (req, res) => {
   }
 });
 
+router.delete('/:userId', async (req, res) => {
+  try {
+    const authHeader = req.headers.authorization;
+    const accessToken = authHeader.split(' ')[1];
+
+    const sub = await verifyAccessTokenAndGetSub(accessToken);
+
+    if (!sub) {
+      res.status(401).send('Unauthorized');
+      return;
+    }
+
+    const userId = req.params.userId;
+
+    const workoutPlan = await WorkoutPlan.findOneAndDelete({ userId });
+
+    if (!workoutPlan) {
+      res.status(404).send('Workout plan not found');
+      return;
+    }
+
+    res.status(200).send('Workout plan deleted successfully');
+    console.log('Workout plan deleted successfully');
+  } catch (error) {
+    console.error('Error deleting workout plan:', error);
+    res.status(500).send('Server error');
+  }
+});
+
+
 
 module.exports = router;

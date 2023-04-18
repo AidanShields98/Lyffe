@@ -5,8 +5,10 @@ import IconButton from "@material-ui/core/IconButton";
 import EditIcon from "@material-ui/icons/Edit";
 import EditWorkoutForm from "./EditWorkoutForm";
 import { useAuth0 } from "@auth0/auth0-react";
+import DeleteIcon from "@material-ui/icons/Delete";
+import { Button } from "@mui/material";
 
-function WorkoutTable({ workoutData, userId }) {
+function WorkoutTable({ workoutData, userId, onDelete }) {
   const [editingWorkout, setEditingWorkout] = useState(null);
   const { getAccessTokenSilently } = useAuth0();
   const handleEdit = (workoutId, exercises) => {
@@ -22,12 +24,12 @@ function WorkoutTable({ workoutData, userId }) {
           method: "PUT",
           headers: {
             Authorization: `Bearer ${accessToken}`,
-            "Content-Type": "application/json",            
+            "Content-Type": "application/json",
           },
           body: JSON.stringify(newData),
         }
       );
-  
+
       if (response.ok) {
         console.log("Workout updated successfully");
         // Refresh the workout data in the parent component
@@ -38,11 +40,9 @@ function WorkoutTable({ workoutData, userId }) {
     } catch (error) {
       console.error("Error updating workout:", error);
     }
-  
+
     setEditingWorkout(null);
   };
-  
-
 
   const handleCancel = () => {
     setEditingWorkout(null);
@@ -57,83 +57,114 @@ function WorkoutTable({ workoutData, userId }) {
           onCancel={handleCancel}
         />
       ) : (
-        Object.entries(workoutData).map(([workoutId, exercises], workoutIdx) => (
-          <div key={workoutIdx} className="table-row">
-            <Typography variant="h5" className="workout-heading">
-              Workout {workoutIdx + 1}
-              <IconButton
-                aria-label="edit"
-                onClick={() => handleEdit( workoutId, exercises)}
-              >
-                <EditIcon />
-              </IconButton>
-            </Typography>
-            <Grid container spacing={2} className="table-form-con">
-              <Grid item xs={12} md={3} className="table-grid table-grid-header">
-                <Typography variant="subtitle1">Exercise Name</Typography>
+        Object.entries(workoutData).map(
+          ([workoutId, exercises], workoutIdx) => (
+            <div key={workoutIdx} className="table-row">
+              <Typography variant="h5" className="workout-heading">
+                Workout {workoutIdx + 1}
+                <IconButton
+                  aria-label="edit"
+                  onClick={() => handleEdit(workoutId, exercises)}
+                >
+                  <EditIcon />
+                </IconButton>
+                {workoutIdx === 0 && (
+                  <Button
+                    variant="contained"
+                    startIcon={<DeleteIcon />}
+                    onClick={onDelete}
+                  >
+                    Delete Workout
+                  </Button>
+                )}
+              </Typography>
+              <Grid container spacing={2} className="table-form-con">
+                <Grid
+                  item
+                  xs={12}
+                  md={3}
+                  className="table-grid table-grid-header"
+                >
+                  <Typography variant="subtitle1">Exercise Name</Typography>
+                </Grid>
+                <Grid
+                  item
+                  xs={4}
+                  md={3}
+                  className="table-grid table-grid-header"
+                >
+                  <Typography variant="subtitle1">Sets</Typography>
+                </Grid>
+                <Grid
+                  item
+                  xs={4}
+                  md={3}
+                  className="table-grid table-grid-header"
+                >
+                  <Typography variant="subtitle1">Reps</Typography>
+                </Grid>
+                <Grid
+                  item
+                  xs={4}
+                  md={3}
+                  className="table-grid table-grid-header"
+                >
+                  <Typography variant="subtitle1">Weight (kg)</Typography>
+                </Grid>
+                {Object.values(exercises).map((exercise, rowIndex) => {
+                  if (typeof exercise === "object") {
+                    return (
+                      <React.Fragment key={rowIndex}>
+                        <Grid
+                          item
+                          xs={12}
+                          md={3}
+                          className={`table-grid ${
+                            rowIndex % 2 === 0 ? "table-grid-row" : ""
+                          }`}
+                        >
+                          <Typography>{exercise.exercise}</Typography>
+                        </Grid>
+                        <Grid
+                          item
+                          xs={4}
+                          md={3}
+                          className={`table-grid ${
+                            rowIndex % 2 === 0 ? "table-grid-row" : ""
+                          }`}
+                        >
+                          <Typography>{exercise.sets}</Typography>
+                        </Grid>
+                        <Grid
+                          item
+                          xs={4}
+                          md={3}
+                          className={`table-grid ${
+                            rowIndex % 2 === 0 ? "table-grid-row" : ""
+                          }`}
+                        >
+                          <Typography>{exercise.reps}</Typography>
+                        </Grid>
+                        <Grid
+                          item
+                          xs={4}
+                          md={3}
+                          className={`table-grid ${
+                            rowIndex % 2 === 0 ? "table-grid-row" : ""
+                          }`}
+                        >
+                          <Typography>{exercise.weight} kg</Typography>
+                        </Grid>
+                      </React.Fragment>
+                    );
+                  } else {
+                    return null;
+                  }
+                })}
               </Grid>
-              <Grid item xs={4} md={3} className="table-grid table-grid-header">
-                <Typography variant="subtitle1">Sets</Typography>
-              </Grid>
-              <Grid item xs={4} md={3} className="table-grid table-grid-header">
-                <Typography variant="subtitle1">Reps</Typography>
-              </Grid>
-              <Grid item xs={4} md={3} className="table-grid table-grid-header">
-                <Typography variant="subtitle1">Weight (kg)</Typography>
-              </Grid>
-              {Object.values(exercises).map((exercise, rowIndex) => {
-                if (typeof exercise === "object") {
-                  return (
-                    <React.Fragment key={rowIndex}>
-                      <Grid
-                        item
-                        xs={12}
-                        md={3}
-                        className={`table-grid ${
-                          rowIndex % 2 === 0 ? "table-grid-row" : ""
-                        }`}
-                      >
-                        <Typography>{exercise.exercise}</Typography>
-                      </Grid>
-                      <Grid
-                        item
-                        xs={4}
-                        md={3}
-                        className={`table-grid ${
-                          rowIndex % 2 === 0 ? "table-grid-row" : ""
-                        }`}
-                      >
-                        <Typography>{exercise.sets}</Typography>
-                      </Grid>
-                      <Grid
-                        item
-                        xs={4}
-                        md={3}
-                        className={`table-grid ${
-                          rowIndex % 2 === 0 ? "table-grid-row" : ""
-                        }`}
-                      >
-                        <Typography>{exercise.reps}</Typography>
-                      </Grid>
-                      <Grid
-                        item
-                        xs={4}
-                        md={3}
-                        className={`table-grid ${
-                          rowIndex % 2 === 0 ? "table-grid-row" : ""
-                        }`}
-                      >
-                        <Typography>{exercise.weight} kg</Typography>
-                      </Grid>
-                    </React.Fragment>
-                  );
-                } else {
-                  return null;
-                }
-              })}
-            </Grid>
-          </div>
-        ))
+            </div>
+          )
+        )
       )}
     </div>
   );

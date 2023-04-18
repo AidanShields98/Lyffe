@@ -24,7 +24,7 @@ const fetchUserWorkout = async (userId) => {
 };
 
 export const Workout = () => {
-  const { user } = useAuth0();
+  const { user, getAccessTokenSilently } = useAuth0();
   const [userWorkout, setUserWorkout] = useState(null);
   const [showCreateWorkout, setShowCreateWorkout] = useState(false);
 
@@ -49,6 +49,28 @@ export const Workout = () => {
     fetchData();
   };
 
+  const handleDelete = async () => {
+    try {
+      const accessToken = await getAccessTokenSilently();
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/workout/${user.sub}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+  
+      if (response.ok) {
+        console.log("Workout plan deleted successfully");
+        setUserWorkout(null);
+      } else {
+        console.error("Error deleting workout plan:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error deleting workout plan:", error);
+    }
+  };
+  
+
   
   return (
     <div>
@@ -66,7 +88,7 @@ export const Workout = () => {
       {userWorkout && (
         // Render the WorkoutTable component if there's a workout
         <div>
-          <WorkoutTable workoutData={userWorkout.workouts} userId={user.sub}  />
+          <WorkoutTable workoutData={userWorkout.workouts} userId={user.sub} onDelete={handleDelete}  />
         </div>
       )}
       {showCreateWorkout && (
