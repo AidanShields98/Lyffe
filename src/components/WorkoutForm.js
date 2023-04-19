@@ -31,6 +31,13 @@ function WorkoutForm({ numRows = 6, onFormChange }) {
     }
   };
 
+  const handleDeleteRow = (rowIndex) => {
+    const newFormData = formData.filter((_, index) => index !== rowIndex);
+    setFormData(newFormData);
+    onFormChange(newFormData);
+  };
+
+
   return (
     <div className="workout-root">
       <form className="workout-form">
@@ -89,6 +96,9 @@ function WorkoutForm({ numRows = 6, onFormChange }) {
         ))}
         <Button variant="contained" color="primary" onClick={handleAddRow}>
           Add Row
+        </Button>
+        <Button variant="contained" color="primary" onClick={handleDeleteRow}>
+          Delete Row
         </Button>
       </form>
     </div>

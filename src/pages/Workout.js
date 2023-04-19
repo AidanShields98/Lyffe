@@ -28,12 +28,12 @@ export const Workout = () => {
   const [userWorkout, setUserWorkout] = useState(null);
   const [showCreateWorkout, setShowCreateWorkout] = useState(false);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const fetchedWorkout = await fetchUserWorkout(user.sub);
-      setUserWorkout(fetchedWorkout);
-    };
+  const fetchData = async () => {
+    const fetchedWorkout = await fetchUserWorkout(user.sub);
+    setUserWorkout(fetchedWorkout);
+  };
 
+  useEffect(() => {
     if (user?.sub) {
       fetchData();
     }
@@ -88,7 +88,7 @@ export const Workout = () => {
       {userWorkout && (
         // Render the WorkoutTable component if there's a workout
         <div>
-          <WorkoutTable workoutData={userWorkout.workouts} userId={user.sub} onDelete={handleDelete}  />
+          <WorkoutTable workoutData={userWorkout.workouts} userId={user.sub} onDelete={handleDelete} onWorkoutUpdated={fetchData} />
         </div>
       )}
       {showCreateWorkout && (

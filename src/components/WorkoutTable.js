@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
@@ -8,7 +8,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { Button } from "@mui/material";
 
-function WorkoutTable({ workoutData, userId, onDelete }) {
+function WorkoutTable({ workoutData, userId, onDelete, onWorkoutUpdated }) {
   const [editingWorkout, setEditingWorkout] = useState(null);
   const { getAccessTokenSilently } = useAuth0();
   const handleEdit = (workoutId, exercises) => {
@@ -32,8 +32,7 @@ function WorkoutTable({ workoutData, userId, onDelete }) {
 
       if (response.ok) {
         console.log("Workout updated successfully");
-        // Refresh the workout data in the parent component
-        // ...
+        onWorkoutUpdated();
       } else {
         console.error("Error updating workout:", response.statusText);
       }
@@ -48,6 +47,12 @@ function WorkoutTable({ workoutData, userId, onDelete }) {
     setEditingWorkout(null);
   };
 
+  const [showDeleteButton, setShowDeleteButton] = useState(true);
+
+  useEffect(() => {
+    setShowDeleteButton(editingWorkout === null);
+  }, [editingWorkout]);
+
   return (
     <div className="table-root">
       {editingWorkout ? (
@@ -55,6 +60,7 @@ function WorkoutTable({ workoutData, userId, onDelete }) {
           workoutData={editingWorkout.exercises}
           onSave={handleSave}
           onCancel={handleCancel}
+          onWorkoutUpdated={onWorkoutUpdated}
         />
       ) : (
         Object.entries(workoutData).map(
@@ -68,15 +74,6 @@ function WorkoutTable({ workoutData, userId, onDelete }) {
                 >
                   <EditIcon />
                 </IconButton>
-                {workoutIdx === 0 && (
-                  <Button
-                    variant="contained"
-                    startIcon={<DeleteIcon />}
-                    onClick={onDelete}
-                  >
-                    Delete Workout
-                  </Button>
-                )}
               </Typography>
               <Grid container spacing={2} className="table-form-con">
                 <Grid
@@ -166,6 +163,16 @@ function WorkoutTable({ workoutData, userId, onDelete }) {
           )
         )
       )}
+       {showDeleteButton && (
+                <Button
+                  variant="contained"
+                  startIcon={<DeleteIcon />}
+                  onClick={onDelete}
+                  style={{ padding: "10px", margin: "10px" }}
+                >
+                  Delete Workout
+                </Button>
+              )}
     </div>
   );
 }
