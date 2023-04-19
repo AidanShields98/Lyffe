@@ -1,15 +1,11 @@
 const mongoose = require('mongoose');
 
-const exerciseSchema = new mongoose.Schema({
-  name: { type: String, required: true },
+const workoutSchema = new mongoose.Schema({
+  exercise: { type: String, required: true },
   reps: { type: Number, required: true },
   sets: { type: Number, required: true },
   weight: { type: Number, required: true },
 });
-
-
-
-const Workout = mongoose.model('Workout', workoutSchema);
 
 const workoutPlanSchema = new mongoose.Schema({
   userId: { type: String, required: true },
@@ -18,7 +14,7 @@ const workoutPlanSchema = new mongoose.Schema({
     required: true,
     validate: {
       validator: function (value) {
-        return value >= 3  && value < 6;
+        return value >= 3 && value <= 6;
       },
       message: 'Days must be a number between 3 and 6',
     },
@@ -26,12 +22,10 @@ const workoutPlanSchema = new mongoose.Schema({
   workouts: [workoutSchema],
 });
 
-const workoutSchema = new mongoose.Schema({
-  userId: {
-    type: String,
-    required: true,
-  },
-  workoutData: workoutPlanSchema,
-});
+const WorkoutPlan = mongoose.model('WorkoutPlan', workoutPlanSchema);
+const Workout = mongoose.model('Workout', workoutSchema);
 
-module.exports = mongoose.model('WorkoutPlan', workoutPlanSchema);
+module.exports = {
+  WorkoutPlan,
+  Workout,
+};

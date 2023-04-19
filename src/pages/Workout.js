@@ -6,14 +6,17 @@ import WorkoutTable from "../components/WorkoutTable";
 
 const fetchUserWorkout = async (userId) => {
   try {
-    const response = await fetch(`/api/workouts/${userId}`);
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/workout/${userId}`);
 
     if (!response.ok) {
       console.error('Error fetching user workout:', response.status);
       return null;
     }
 
-    return await response.json();
+    const responseText = await response.text();
+    const data = JSON.parse(responseText);
+    return data;
+
   } catch (error) {
     console.error('Error fetching user workout:', error);
     return null;
@@ -21,23 +24,22 @@ const fetchUserWorkout = async (userId) => {
 };
 
 export const Workout = () => {
-  const { user } = useAuth0();
+  const { user, getAccessTokenSilently } = useAuth0();
   const [userWorkout, setUserWorkout] = useState(null);
   const [showCreateWorkout, setShowCreateWorkout] = useState(false);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const fetchedWorkout = await fetchUserWorkout(user.sub);
-      setUserWorkout(fetchedWorkout);
-    };
+  const fetchData = async () => {
+    const fetchedWorkout = await fetchUserWorkout(user.sub);
+    setUserWorkout(fetchedWorkout);
+  };
 
+  useEffect(() => {
     if (user?.sub) {
       fetchData();
     }
   }, [user]);
 
   const handleWorkoutCreated = () => {
-    // Fetch the updated user workout and update the state
     const fetchData = async () => {
       const fetchedWorkout = await fetchUserWorkout(user.sub);
       setUserWorkout(fetchedWorkout);
@@ -47,9 +49,33 @@ export const Workout = () => {
     fetchData();
   };
 
+  const handleDelete = async () => {
+    try {
+      const accessToken = await getAccessTokenSilently();
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/workout/${user.sub}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+  
+      if (response.ok) {
+        console.log("Workout plan deleted successfully");
+        setUserWorkout(null);
+      } else {
+        console.error("Error deleting workout plan:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error deleting workout plan:", error);
+    }
+  };
+  
+
+  
   return (
     <div>
       {!userWorkout && !showCreateWorkout && (
+        // Render the message and button to create a workout if there's no workout
         <div className="no-workout">
           <Typography variant="h3" gutterBottom>
             No Workout Data
@@ -59,16 +85,16 @@ export const Workout = () => {
           </Button>
         </div>
       )}
-      {!showCreateWorkout && userWorkout && (
+      {userWorkout && (
+        // Render the WorkoutTable component if there's a workout
         <div>
-         { /* create a WorkoutTable component*/ }
+          <WorkoutTable workoutData={userWorkout.workouts} userId={user.sub} onDelete={handleDelete} onWorkoutUpdated={fetchData} />
         </div>
       )}
       {showCreateWorkout && (
+        // Render the CreateWorkout component to create a new workout
         <CreateWorkout onWorkoutCreated={handleWorkoutCreated} />
       )}
     </div>
   );
 };
-
-export default Workout;

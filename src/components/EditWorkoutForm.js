@@ -1,50 +1,45 @@
-import React, { useState, useCallback } from "react";
-import TextField from "@material-ui/core/TextField";
+import React, { useState, useEffect } from "react";
 import Grid from "@material-ui/core/Grid";
+import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 
-function WorkoutForm({ numRows = 6, onFormChange }) {
-  const [formData, setFormData] = useState(
-    Array(numRows)
-      .fill()
-      .map(() => ({
-        exercise: "",
-        sets: "",
-        reps: "",
-        weight: "",
-      }))
-  );
+function EditWorkoutForm({ workoutData, onSave, onCancel, onWorkoutUpdated }) {
+  const [formData, setFormData] = useState([]);
+
+  useEffect(() => {
+    setFormData(workoutData);
+  }, [workoutData]);
 
   const handleInputChange = (event, rowIndex, field) => {
     const newFormData = [...formData];
-    newFormData[rowIndex][field] = event.target.value;
+    newFormData[rowIndex] = {
+      ...newFormData[rowIndex],
+      [field]: event.target.value,
+    };
     setFormData(newFormData);
-    onFormChange(newFormData);
   };
 
   const handleAddRow = () => {
-    if (formData.length < 8) {
-      setFormData((prevFormData) => [
-        ...prevFormData,
-        { exercise: "", sets: "", reps: "", weight: "" },
-      ]);
-    }
+    setFormData([...formData, {}]);
   };
 
-  const handleDeleteRow = (rowIndex) => {
-    const newFormData = formData.filter((_, index) => index !== rowIndex);
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    onSave(formData);
+  };
+
+  const handleDeleteRow = () => {
+    const newFormData = formData.slice(0, -1);
     setFormData(newFormData);
-    onFormChange(newFormData);
   };
-
+  
 
   return (
-    <div className="workout-root">
-      <form className="workout-form">
-        {formData.map((row, rowIndex) => (
-          <div key={rowIndex} className="workout-row">
-            <Grid container spacing={2} className="workout-form-container">
-              <Grid item xs={12} md={3}>
+    <form className="workout-form" onSubmit={handleSubmit}>
+      {formData.map((row, rowIndex) => (
+        <div key={rowIndex} className="workout-row">
+          <Grid container spacing={2} className="workout-form-container">
+          <Grid item xs={12} md={3}>
                 <TextField
                   label="Exercise Name"
                   variant="outlined"
@@ -91,18 +86,33 @@ function WorkoutForm({ numRows = 6, onFormChange }) {
                   fullWidth
                 />
               </Grid>
-            </Grid>
-          </div>
-        ))}
-        <Button variant="contained" color="primary" onClick={handleAddRow}>
-          Add Row
-        </Button>
-        <Button variant="contained" color="primary" onClick={handleDeleteRow}>
-          Delete Row
-        </Button>
-      </form>
-    </div>
+          </Grid>
+        </div>
+      ))}
+      <Grid container spacing={2} justifyContent="space-between" style={{ marginTop: '1rem' }}>
+        <Grid item xs={3} md={2}>
+          <Button variant="contained" color="primary" onClick={handleAddRow} fullWidth>
+            Add Row
+          </Button>
+        </Grid>
+        <Grid item xs={3} md={2}>
+          <Button variant="contained" color="primary" onClick={handleDeleteRow} fullWidth>
+            Delete Row
+          </Button>
+        </Grid>
+        <Grid item xs={3} md={2}>
+          <Button variant="contained" color="primary" type="submit" fullWidth>
+            Save
+          </Button>
+        </Grid>
+        <Grid item xs={3} md={2}>
+          <Button variant="contained" color="secondary" onClick={onCancel} fullWidth>
+            Cancel
+          </Button>
+        </Grid>
+      </Grid>
+    </form>
   );
 }
 
-export default WorkoutForm;
+export default EditWorkoutForm;
