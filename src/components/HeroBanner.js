@@ -1,52 +1,39 @@
-import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import { Typography, Container } from "@material-ui/core";
+import React, { useEffect, useState } from "react";
+import { Collapse, IconButton, Typography } from "@material-ui/core";
 import LoginButton from "./LoginButton";
-import Logo from '../assets/imgs/logo.png';
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  hero: {
-    background:
-      'url("https://images.unsplash.com/photo-1614850715649-1d0106293bd1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80") no-repeat center center/cover',
-    height: "50vh",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    flexDirection: "column",
-    color: "white",
-  },
-}));
+import { Stack } from "@mui/material";
+import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown';
 
-export function HeroBanner() {
-  const classes = useStyles();
-
+const HeroBanner = () => {
+  const [checked, setChecked] = useState(false);
+  useEffect(() => { 
+    setChecked(true);
+   }, []);
   return (
-    <div className="landing-root">
-      <div className={classes.hero}>
-        <Container maxWidth="sm">
-          <Typography
-            variant="h2"
-            align="center"
-            color="textPrimary"
-            gutterBottom
-          >
-            Welcome to Lyffe
-          </Typography>
-          <Typography
-            variant="h5"
-            align="center"
-            color="textSecondary"
-            paragraph
-          >
-           Lyffe app stuff will go here
-          </Typography>
-        </Container>
-        <LoginButton />
-      </div>
-    </div>
+<Stack
+  sx={{
+    backgroundPosition: 'center',
+    backgroundSize: 'cover',
+    justifyContent: 'center',
+    alignItems: 'center',
+    textAlign: 'center',
+    minHeight: '80vh', // reduce the minHeight value
+    padding: '2rem',
+    position: 'relative',
+  }}
+>
+      <Collapse in={checked}  {...(true ? { timeout: 1000} : {} )} collapsedSize={100}> 
+      <Typography variant="h1" className="hero-title" gutterBottom>
+        Welcome to Lyffe
+      </Typography>
+      <Typography variant="h5" className="hero-para" gutterBottom>
+        Discover a new way to achieve your fitness goals
+      </Typography>
+      <LoginButton />
+      </Collapse>
+    </Stack>
   );
-}
+};
+
 
 export default HeroBanner;
