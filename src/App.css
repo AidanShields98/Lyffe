@@ -29,16 +29,8 @@
  Landing page 
   */
   
-  /* .landing-root {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-size: cover;
-    background-position: center;
-  }
 
+  /* 
   .landing-buttonContainer {
     width: 300px;
     display: flex;
@@ -48,24 +40,35 @@
   }
   */
   .landing-button {
-  position: absolute;
-  top: 16px;  
-  right: 16px; 
+    margin: 0 auto;
+    display: block;
+    margin-top: 1vh !important;
   } 
 
   .landing-root {
     flex-grow: 1;
   }
   
-  .landing-hero {
-    background:
-      'url("https://images.unsplash.com/photo-1614850715649-1d0106293bd1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80") no-repeat center center/cover';
-    height: "50vh";
-    display: "flex";
-    justify-content: "center";
-    align-items: "center";
-    flex-direction: "column";
-    color: "white";
+
+
+  .hero-title{
+    font-family: "Nunito !important";
+    color: #ffffff;
+    font-size: 8rem !important;
+  }
+  
+  .hero-para{
+    font-family: "Nunito !important";
+    color: #ffffff;
+    margin-top: 32vh !important;
+    font-size: 3rem !important;
+  }
+
+  
+
+  .hero-down{
+    color: #1976d2;
+    font-size: 4rem !important;
   }
   
   .landing-heroLogin {
@@ -92,42 +95,18 @@
     flex-grow: 2;
   }
   
+  .content-title {
+    font-family: "Nunito !important";
+    font-weight: bold;
+    font-size: 2rem !important;
+    color: #fff;
+  }
 
-  .my-component {
-    display: flex;
-    height: 50vh;
-    align-items: center;
+  .content-description {
+    font-family: "Nunito !important";
+    font-size: 1.3rem !important;
+    color: #ddd;
   }
-  
-  .image-container {
-    flex: 0 0 30vw;
-    height: 50vh;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-  }
-  
-  .comp-media {
-    height: "50vh";
-    width: "30vw";
-    max-width: "100%";
-  }
-  
-  .text-container {
-    flex: 1;
-    padding: 0 2rem;
-  }
-  
-  .text-container2 {
-    font-size: 2rem;
-    margin-bottom: 1rem;
-  }
-  
-  .text-p {
-    font-size: 1.2rem;
-    line-height: 1.5;
-  }
-  
   
   /* 
   Exercise page
@@ -435,6 +414,15 @@ Sign up page
     .exercise-card {
       width: 320px;
     }
+
+    .hero-title {
+        font-size: 5rem !important; 
+    }
+    
+    .hero-para {
+        font-size: 2rem !important;
+    }
+    
   
   }
   

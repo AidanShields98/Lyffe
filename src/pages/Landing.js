@@ -1,14 +1,27 @@
 import HeroBanner from "../components/HeroBanner";
-import LandingComponent1 from "../components/LandingComponent1";
-import { Stack } from "@mui/system";
-export function LandingPage() {
+// import AppContent from "../components/AppContent";
+import { makeStyles } from "@material-ui/core";
+import background from '../assets/imgs/hero.jpg';
+const useStyles = makeStyles((theme) => ({
+  root: {
+    minHeight: '100vh',
+    backgroundImage: `url(${background})`,
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: 'cover',
+    backgroundPosition: 'center', 
+    [theme.breakpoints.down('sm')]: {
+      backgroundSize: 'auto', 
+    },
+  }
+}));
 
+export const LandingPage = () => {
+  const classes = useStyles();
   return (
-   <Stack spacing={{ md: 1, xs:2}}>
-    <HeroBanner />
-    <LandingComponent1 />
-   </Stack>
-  )
-}
+    <div className={classes.root}>
+      <HeroBanner />
+    </div>
+  );
+};
 
 export default LandingPage;
