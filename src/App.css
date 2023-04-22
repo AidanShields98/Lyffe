@@ -261,6 +261,15 @@ Exercise detail
 Workout Page
 */
 
+.workout-grid{
+  display: flex;
+  justify-content: center;
+}
+
+.workout-btn {
+  width: 95%
+}
+
 .workout {
    display: "flex";
     flex-direction: "column";
