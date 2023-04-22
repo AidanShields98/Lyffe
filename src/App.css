@@ -107,14 +107,53 @@
     font-size: 1.3rem !important;
     color: #ddd;
   }
+
+  /* 
+  Home page
+  */
+
+  .home-root {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 10px;
+  }
+    
+  .content-title {
+    color: #000;
+    font-weight: bold;
+    font-size: 2rem !important;
+  }
+  
+  .content-description {
+    font-size: 1.3rem !important;
+  }
+  
+  .CardRoot {
+    width: 100%;
+    max-width: 600px;
+    margin: 1%;
+  }
+  
+  .CardMedia {
+    height: 50%;
+    flex: 1 1 300px;
+  }
+  
+  .CardContent {
+    height: 50%;
+    flex: 1 1 300px;
+  }
+  
   
   /* 
   Exercise page
   */
 
 .exercise-box {
-  margin-top: 50px;
-  padding: 60px 20px 60px;
+  margin-top: 1;
+  padding: 10px 20px 60px;
 }
 
 .exercise-stack {
@@ -198,7 +237,6 @@ search Exercises
 
 .search-box {
   position: relative;
-  margin-bottom: 72px;  
 }
 
 .search-text{
@@ -436,7 +474,11 @@ Sign up page
   }
   
 
-
+  @media (min-width: 600px) {
+    .home-root {
+      margin: 3%;
+    }
+  }
 
 
 

@@ -39,7 +39,7 @@ function App() {
         </AppBar>
       
           <Routes>
-            <Route path="/home" element={<Home />} />
+            <Route path="/" element={<Home />} />
             <Route path="/exercises" element={<Exercises />} />
             <Route path="/workout" element={<Workout />} />
             <Route path="/user" element={<User />} />
