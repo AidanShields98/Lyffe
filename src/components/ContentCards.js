@@ -7,9 +7,9 @@ import Typography from '@mui/material/Typography';
 export default function ContentCards(props) {
   const { pages } = props;
   return (
-    <Card sx={{ maxWidth: 600, margin: 1 }}>
+    <Card sx={{ maxWidth: 600, margin: 1,  }}>
       <CardMedia
-        sx={{ height: 300, objectFit: "contain" }}
+        className='content-image'
         image={pages.image}
         title="page image"
       />

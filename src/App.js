@@ -13,7 +13,7 @@ import { User } from "./pages/User";
 import { LandingPage } from "./pages/Landing";
 import { useAuth0 } from '@auth0/auth0-react';
 import LogoutButton from "./components/LogoutButton";
-
+import Box from "@mui/material/Box";
 function App() {
   const { isAuthenticated } = useAuth0();
 
@@ -38,13 +38,15 @@ function App() {
           </Toolbar>
         </AppBar>
       
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/exercises" element={<Exercises />} />
-            <Route path="/workout" element={<Workout />} />
-            <Route path="/user" element={<User />} />
-            <Route path="/exercise/:id" element={<ExerciseDetail />} />
-          </Routes>
+        <Box sx={{ paddingBottom: "30px" }}> 
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/exercises" element={<Exercises />} />
+              <Route path="/workout" element={<Workout />} />
+              <Route path="/user" element={<User />} />
+              <Route path="/exercise/:id" element={<ExerciseDetail />} />
+            </Routes>
+          </Box>
 
           <BottomNavigation />
         </div>

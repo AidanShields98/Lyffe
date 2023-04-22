@@ -112,7 +112,7 @@
   Home page
   */
 
-  .home-root {
+  .home-cards {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -130,22 +130,25 @@
     font-size: 1.3rem !important;
   }
   
-  .CardRoot {
-    width: 100%;
-    max-width: 600px;
-    margin: 1%;
-  }
-  
-  .CardMedia {
-    height: 50%;
-    flex: 1 1 300px;
-  }
-  
-  .CardContent {
-    height: 50%;
-    flex: 1 1 300px;
-  }
-  
+.content-image{
+  height: 300px;
+}
+
+.CardRoot {
+  width: 100%;
+  max-width: 600px;
+  margin: 1%;
+}
+
+.CardMedia {
+  height: 50%;
+  flex: 1 1 300px;
+}
+
+.CardContent {
+  height: 50%;
+  flex: 1 1 300px;
+}
   
   /* 
   Exercise page
@@ -475,9 +478,9 @@ Sign up page
   
 
   @media (min-width: 600px) {
-    .home-root {
-      margin: 3%;
-    }
+
+
+    
   }
 
 
@@ -485,5 +488,19 @@ Sign up page
   @media screen and (max-width:400px) {
     .exercise-card {
       width: 280px;
+    }
+
+    .content-image{
+      height: 170px; 
+    }
+
+    .content-title {
+      color: #000;
+      font-weight: bold;
+      font-size: 1rem !important;
+    }
+    
+    .content-description {
+      font-size: 0.8rem !important;
     }
   }
