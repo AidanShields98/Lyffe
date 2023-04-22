@@ -3,6 +3,7 @@ import ContentCards from '../components/ContentCards';
 import pages from '../assets/pages';
 import HomeText from '../components/HomeText';
 import HomeTitle from '../components/HomeTitle';
+
 export function Home() {
   return (
     <div className='home-root'>
