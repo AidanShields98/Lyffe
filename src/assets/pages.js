@@ -3,7 +3,7 @@ import Workout from './imgs/Workout.png'
 const pages = [
     {
         title: 'Exercises',
-        description: 'The Exercises tab allows users to search and view various exercises. On the top of the page, there is a search bar where users can enter a keyword to search for exercises. The results of the search are then displayed in a set of cards below the search bar. Each card contains information about an exercise, including its name, bodypart, target muscle and equipment needed.',
+        description: 'The Exercises tab allows users to search and view over 1400 exercises. On the top of the page, there is a search bar where users can enter a keyword to search for exercises. The results of the search are then displayed in a set of cards below the search bar. Each card contains information about an exercise, including its name, bodypart, target muscle and equipment needed.',
         image: Exercises,
         time: 1500,
     },

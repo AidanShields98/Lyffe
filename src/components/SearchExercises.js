@@ -38,7 +38,7 @@ const SearchExercises = ({ setExercises, bodyPart, setBodyPart }) => {
   return (
     <Stack className="search-stack">
       <Typography fontWeight={700} sx={{ fontSize: { lg: '44px', xs: '30px' } }} mb="49px" textAlign="center">
-       Search for any<br /> Exercise or Bodypart!
+       Search for any Exercise or Bodypart!
       </Typography>
       <Box className="search-box">
         <TextField
