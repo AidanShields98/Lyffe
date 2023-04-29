@@ -1,8 +1,7 @@
-import React, { useState, useCallback } from "react";
+import React, { useState } from "react";
 import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
-
 function WorkoutForm({ numRows = 6, onFormChange }) {
   const [formData, setFormData] = useState(
     Array(numRows)
@@ -31,12 +30,10 @@ function WorkoutForm({ numRows = 6, onFormChange }) {
     }
   };
 
-  const handleDeleteRow = (rowIndex) => {
-    const newFormData = formData.filter((_, index) => index !== rowIndex);
+  const handleDeleteRow = () => {
+    const newFormData = formData.slice(0, -1);
     setFormData(newFormData);
-    onFormChange(newFormData);
   };
-
 
   return (
     <div className="workout-root">
@@ -94,12 +91,29 @@ function WorkoutForm({ numRows = 6, onFormChange }) {
             </Grid>
           </div>
         ))}
-        <Button variant="contained" color="primary" onClick={handleAddRow}>
-          Add Row
-        </Button>
-        <Button variant="contained" color="primary" onClick={handleDeleteRow}>
+        <Grid container spacing={2} alignItems="center" justifyContent="center" mt={2}>
+          <Grid
+            item
+            xs={5}
+            sm={6}
+            md={3}
+           className="workout-grid"
+          >
+            <Button variant="contained" color="primary"  className="workout-btn" onClick={handleAddRow}>
+              Add Row
+            </Button>
+          </Grid>
+          <Grid item xs={5} sm={6} md={3} className="workout-grid">
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={handleDeleteRow}
+          className="workout-btn"
+        >
           Delete Row
         </Button>
+      </Grid>
+        </Grid>
       </form>
     </div>
   );

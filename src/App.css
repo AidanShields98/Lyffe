@@ -107,14 +107,56 @@
     font-size: 1.3rem !important;
     color: #ddd;
   }
+
+  /* 
+  Home page
+  */
+
+  .home-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 10px;
+  }
+    
+  .content-title {
+    color: #000;
+    font-weight: bold;
+    font-size: 2rem !important;
+  }
+  
+  .content-description {
+    font-size: 1.3rem !important;
+  }
+  
+.content-image{
+  height: 300px;
+}
+
+.CardRoot {
+  width: 100%;
+  max-width: 600px;
+  margin: 1%;
+}
+
+.CardMedia {
+  height: 50%;
+  flex: 1 1 300px;
+}
+
+.CardContent {
+  height: 50%;
+  flex: 1 1 300px;
+}
   
   /* 
   Exercise page
   */
 
 .exercise-box {
-  margin-top: 50px;
-  padding: 60px 20px 60px;
+  margin-top: 1;
+  padding: 10px 20px 60px;
 }
 
 .exercise-stack {
@@ -198,7 +240,6 @@ search Exercises
 
 .search-box {
   position: relative;
-  margin-bottom: 72px;  
 }
 
 .search-text{
@@ -260,6 +301,15 @@ Exercise detail
 /* 
 Workout Page
 */
+
+.workout-grid{
+  display: flex;
+  justify-content: center;
+}
+
+.workout-btn {
+  width: 95%
+}
 
 .workout {
    display: "flex";
@@ -392,8 +442,31 @@ Workout Page
 }
 
 /* 
-Sign up page 
+User page 
 */
+
+.user-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 75vh;
+}
+
+.user-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  max-width: 400px;
+}
+
+.user-media {
+  height: 140px;
+  width: 140px;
+  border-radius: 50%;
+  margin-top: 16px;
+}
+
 
 
 
@@ -427,12 +500,30 @@ Sign up page
   }
   
 
+  @media (min-width: 600px) {
 
+
+    
+  }
 
 
 
   @media screen and (max-width:400px) {
     .exercise-card {
       width: 280px;
+    }
+
+    .content-image{
+      height: 170px; 
+    }
+
+    .content-title {
+      color: #000;
+      font-weight: bold;
+      font-size: 1rem !important;
+    }
+    
+    .content-description {
+      font-size: 0.8rem !important;
     }
   }

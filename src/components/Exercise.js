@@ -11,12 +11,7 @@ const Exercise = ({ exercises, setExercises, bodyPart }) => {
   useEffect(() => {
     const fetchExercisesData = async () => {
       let exercisesData = [];
-
-      if (bodyPart === 'all') {
         exercisesData = await fetchData('https://exercisedb.p.rapidapi.com/exercises', exerciseOptions);   //this authorizes me to make the request with rapidapi so it is passed to both using the key 
-      } else {
-        exercisesData = await fetchData(`https://exercisedb.p.rapidapi.com/exercises/bodyPart/${bodyPart}`, exerciseOptions);
-      }
 
       setExercises(exercisesData);
     };
@@ -32,7 +27,7 @@ const Exercise = ({ exercises, setExercises, bodyPart }) => {
     const paginate = (event, value) => {
       setCurrentPage(value);
   
-      window.scrollTo({ top: 1800, behavior: 'smooth' });
+      window.scrollTo({ top: 100, behavior: 'smooth' });
     };
 
   return (
@@ -42,7 +37,7 @@ const Exercise = ({ exercises, setExercises, bodyPart }) => {
           <ExerciseCard key={idx} exercise={exercise} />
         ))}
       </Stack>
-      <Stack sx={{ mt: { lg: '114px', xs: '70px' } }} alignItems="center">
+      <Stack sx={{ mt: '70px'  }} alignItems="center">
         {exercises.length > 9 && (
           <Pagination
             color="standard"
