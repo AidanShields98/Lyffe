@@ -7,6 +7,7 @@ import EditWorkoutForm from "./EditWorkoutForm";
 import { useAuth0 } from "@auth0/auth0-react";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { Button } from "@mui/material";
+import { saveUserWorkout } from "../utils/fetchData";
 
 function WorkoutTable({ workoutData, userId, onDelete, onWorkoutUpdated }) {
   const [editingWorkout, setEditingWorkout] = useState(null);
@@ -18,29 +19,20 @@ function WorkoutTable({ workoutData, userId, onDelete, onWorkoutUpdated }) {
   const handleSave = async (newData) => {
     try {
       const accessToken = await getAccessTokenSilently();
-      const response = await fetch(
-        `${process.env.REACT_APP_API_URL}/workout/${userId}/${editingWorkout.workoutId}`,
-        {
-          method: "PUT",
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(newData),
-        }
+      const success = await saveUserWorkout(
+        userId,
+        editingWorkout.workoutId,
+        newData,
+        accessToken
       );
 
-      if (response.ok) {
-        console.log("Workout updated successfully");
+      if (success) {
         onWorkoutUpdated();
-      } else {
-        console.error("Error updating workout:", response.statusText);
+        setEditingWorkout(null);
       }
     } catch (error) {
       console.error("Error updating workout:", error);
     }
-
-    setEditingWorkout(null);
   };
 
   const handleCancel = () => {
@@ -52,7 +44,6 @@ function WorkoutTable({ workoutData, userId, onDelete, onWorkoutUpdated }) {
   useEffect(() => {
     setShowDeleteButton(editingWorkout === null);
   }, [editingWorkout]);
-
   return (
     <div className="table-root">
       {editingWorkout ? (

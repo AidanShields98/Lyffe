@@ -4,7 +4,7 @@ import Pagination from '@mui/material/Pagination';
 import { exerciseOptions, fetchData } from '../utils/fetchData';
 import ExerciseCard from './ExerciseCard';
 
-const Exercise = ({ exercises, setExercises, bodyPart }) => {
+const Exercise = ({ exercises, setExercises }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [exercisesPerPage] = useState(6);
 
@@ -17,7 +17,7 @@ const Exercise = ({ exercises, setExercises, bodyPart }) => {
     };
 
     fetchExercisesData();
-  }, [bodyPart]);
+  }, []);
 
     // Pagination
     const indexOfLastExercise = currentPage * exercisesPerPage;

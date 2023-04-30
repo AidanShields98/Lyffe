@@ -1,31 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React, {useState } from 'react';
 import { Box, Button, Stack, TextField, Typography } from '@mui/material';
-
 import { exerciseOptions, fetchData } from '../utils/fetchData';
 
-const SearchExercises = ({ setExercises, bodyPart, setBodyPart }) => {
+const SearchExercises = ({ setExercises}) => {
   const [search, setSearch] = useState('');
-  const [bodyParts, setBodyParts] = useState([]);
 
-  useEffect(() => {
-    const fetchExercisesData = async () => {
-      const bodyPartsData = await fetchData('https://exercisedb.p.rapidapi.com/exercises/bodyPartList', exerciseOptions);
-
-      setBodyParts(['all', ...bodyPartsData]);
-    };
-
-    fetchExercisesData();
-  }, []);
 
   const handleSearch = async () => {
     if (search) {
       const exercisesData = await fetchData('https://exercisedb.p.rapidapi.com/exercises', exerciseOptions);
 
       const searchedExercises = exercisesData.filter(
-        (item) => item.name.toLowerCase().includes(search)
-               || item.target.toLowerCase().includes(search)
-               || item.equipment.toLowerCase().includes(search)
-               || item.bodyPart.toLowerCase().includes(search),
+        (data) => data.name.toLowerCase().includes(search)
+               || data.target.toLowerCase().includes(search)
+               || data.equipment.toLowerCase().includes(search)
+               || data.bodyPart.toLowerCase().includes(search),
       );
 
       window.scrollTo({ top: 1800, left: 100, behavior: 'smooth' });
