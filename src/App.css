@@ -22,7 +22,12 @@ body {
 .Appbar {
   background-color: #1976d2 !important;
   color: #fff !important;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
 }
+
 
 /*
  Landing page 
@@ -104,6 +109,11 @@ body {
 /* 
   Home page
   */
+
+  .home-root {
+    gap: 20px;
+    padding: 50px;
+  }
 
 .home-cards {
   display: flex;
@@ -364,24 +374,20 @@ Workout Page
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 24px;
+  padding: 80px;
   padding-bottom: 80px;
 }
 
 .table-row {
-  border-radius: 2px;
   padding: 10px;
   width: 100%;
   max-width: 800px;
   margin-bottom: 24px;
-  border-radius: 1%;
-  border-top: 4px solid #1976d2;
-  border-bottom: 4px solid #1976d2;
-  border-bottom-left-radius: 20px;
-  transition: 0.3s all ease-in-out;
+  border-top: 4px solid #1976d2 ;
+  border-bottom: 4px solid #1976d2 ;
+  border-radius: 15px;
   box-shadow: 5px 0 5px -5px rgba(0, 0, 0, 0.2),
     -5px 0 5px -5px rgba(0, 0, 0, 0.2);
-  border-top-right-radius: 20px;
 }
 
 .workout-heading {

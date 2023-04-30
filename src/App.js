@@ -21,7 +21,7 @@ function App() {
     <div>
       {isAuthenticated ? (
         <div>
-        <AppBar position="static" className="Appbar">
+        <AppBar position="fixed" className="Appbar">
           <Toolbar sx={{ textAlign: "center" }}>
             <Typography
               sx={{

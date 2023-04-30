@@ -12,8 +12,8 @@ import { saveUserWorkout } from "../utils/fetchData";
 function WorkoutTable({ workoutData, userId, onDelete, onWorkoutUpdated }) {
   const [editingWorkout, setEditingWorkout] = useState(null);
   const { getAccessTokenSilently } = useAuth0();
-  const handleEdit = (workoutId, exercises) => {
-    setEditingWorkout({ workoutId, exercises });
+  const handleEdit = (workoutId, ex) => {
+    setEditingWorkout({ workoutId, ex });
   };
 
   const handleSave = async (newData) => {
@@ -48,20 +48,20 @@ function WorkoutTable({ workoutData, userId, onDelete, onWorkoutUpdated }) {
     <div className="table-root">
       {editingWorkout ? (
         <EditWorkoutForm
-          workoutData={editingWorkout.exercises}
+          workoutData={editingWorkout.ex}
           onSave={handleSave}
           onCancel={handleCancel}
           onWorkoutUpdated={onWorkoutUpdated}
         />
       ) : (
         Object.entries(workoutData).map(
-          ([workoutId, exercises], workoutIdx) => (
+          ([workoutId, ex], workoutIdx) => (
             <div key={workoutIdx} className="table-row">
               <Typography variant="h5" className="workout-heading">
                 Workout {workoutIdx + 1}
                 <IconButton
                   aria-label="edit"
-                  onClick={() => handleEdit(workoutId, exercises)}
+                  onClick={() => handleEdit(workoutId, ex)}
                 >
                   <EditIcon />
                 </IconButton>
@@ -99,7 +99,7 @@ function WorkoutTable({ workoutData, userId, onDelete, onWorkoutUpdated }) {
                 >
                   <Typography variant="subtitle1">Weight (kg)</Typography>
                 </Grid>
-                {Object.values(exercises).map((exercise, rowIndex) => {
+                {Object.values(ex).map((exercise, rowIndex) => {
                   if (typeof exercise === "object") {
                     return (
                       <React.Fragment key={rowIndex}>

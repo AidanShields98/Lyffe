@@ -5,13 +5,12 @@ import Exercise from '../components/Exercise';
 import SearchExercises from '../components/SearchExercises';
 
 const Exercises = () => {
-
-    const [exercises, setExercises] = useState([]);
+    const [ex, setData] = useState([]);
 
     return (
         <Box>
-            <SearchExercises setExercises={setExercises} />
-            <Exercise setExercises={setExercises} exercises={exercises}  />
+            <SearchExercises setData={setData} />
+            <Exercise setData={setData} ex={ex}  />
         </Box>
     )
 }
