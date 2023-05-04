@@ -29,7 +29,7 @@ const workoutPlanSchema = new mongoose.Schema({
 
 const WorkoutPlan = mongoose.model('WorkoutPlan', workoutPlanSchema);
 
-const verifyAccessTokenAndGetSub = async (accessToken) => {
+const verifyAccessToken = async (accessToken) => {
   try {
     const response = await axios.get(`https://${process.env.AUTH0_DOMAIN}/userinfo`, {
       headers: { Authorization: `Bearer ${accessToken}` },
@@ -43,6 +43,7 @@ const verifyAccessTokenAndGetSub = async (accessToken) => {
   }
 };
 
+
 router.post('/addworkout', async (req, res) => {
   try {
     // Extract the access token from the Authorization header
@@ -50,7 +51,7 @@ router.post('/addworkout', async (req, res) => {
     const accessToken = authHeader.split(' ')[1];
 
     // Use the Auth0 Management API to verify the access token and get the user's sub
-    const sub = await verifyAccessTokenAndGetSub(accessToken);
+    const sub = await verifyAccessToken(accessToken);
 
     if (!sub) {
       res.status(401).send('Unauthorized');
@@ -106,7 +107,7 @@ router.put('/:userId/:workoutId', async (req, res) => {
     const authHeader = req.headers.authorization;
     const accessToken = authHeader.split(' ')[1];
 
-    const sub = await verifyAccessTokenAndGetSub(accessToken);
+    const sub = await verifyAccessToken(accessToken);
 
     if (!sub) {
       res.status(401).send('Unauthorized');
@@ -131,10 +132,16 @@ router.put('/:userId/:workoutId', async (req, res) => {
     }
 
 
-    const updatedWorkout = workoutPlan.workouts.get(workoutId).map((exercise, index) => {
-      return workoutData[index] ? workoutData[index] : exercise;
-    });
+    const existingWorkout = workoutPlan.workouts.get(workoutId);
 
+    const updatedWorkout = workoutData.map((exercise, index) => {
+      // If the exercise doesn't have an _id, assign a new ObjectId
+      if (!exercise._id) {
+        exercise._id = new ObjectId();
+      }
+      return exercise;
+    });
+    
     workoutPlan.workouts.set(workoutId, updatedWorkout);
     await workoutPlan.save();
 
@@ -151,7 +158,7 @@ router.delete('/:userId', async (req, res) => {
     const authHeader = req.headers.authorization;
     const accessToken = authHeader.split(' ')[1];
 
-    const sub = await verifyAccessTokenAndGetSub(accessToken);
+    const sub = await verifyAccessToken(accessToken);
 
     if (!sub) {
       res.status(401).send('Unauthorized');

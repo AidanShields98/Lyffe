@@ -39,6 +39,7 @@ function App() {
         </AppBar>
       
         <Box sx={{ paddingBottom: "30px" }}> 
+
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/exercises" element={<Exercises />} />
@@ -46,8 +47,8 @@ function App() {
               <Route path="/user" element={<User />} />
               <Route path="/exercise/:id" element={<ExerciseDetail />} />
             </Routes>
-          </Box>
 
+          </Box>
           <BottomNavigation />
         </div>
       ) : (

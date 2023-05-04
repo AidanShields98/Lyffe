@@ -44,6 +44,7 @@ function WorkoutTable({ workoutData, userId, onDelete, onWorkoutUpdated }) {
   useEffect(() => {
     setShowDeleteButton(editingWorkout === null);
   }, [editingWorkout]);
+  
   return (
     <div className="table-root">
       {editingWorkout ? (
@@ -51,7 +52,6 @@ function WorkoutTable({ workoutData, userId, onDelete, onWorkoutUpdated }) {
           workoutData={editingWorkout.ex}
           onSave={handleSave}
           onCancel={handleCancel}
-          onWorkoutUpdated={onWorkoutUpdated}
         />
       ) : (
         Object.entries(workoutData).map(
