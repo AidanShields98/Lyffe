@@ -60,8 +60,10 @@ function WorkoutForm({ numRows = 6, onFormChange }) {
           <div key={rowIndex} className="workout-row">
             <Grid container spacing={2} className="workout-form-container">
               <Grid item xs={12} md={3}>
-                <Autocomplete
-                  options={exercises.map((exercise) => exercise.name)}
+              <Autocomplete
+                  options={exercises
+                    .map((exercise) => exercise.name)
+                    .slice(0, 8)} 
                   value={formData[rowIndex]?.exercise || ""}
                   onChange={(event, newValue) =>
                     handleInputChange(newValue, rowIndex, "exercise")
