@@ -31,10 +31,10 @@ function WorkoutForm({ numRows = 6, onFormChange }) {
 
     fetchApiExera();
   }, []);
-
-  const handleInputChange = (event, rowIndex, field) => {
+  const handleInputChange = (eventOrValue, rowIndex, field) => {
     const newFormData = [...formData];
-    newFormData[rowIndex][field] = event.target.value;
+    const value = eventOrValue.target ? eventOrValue.target.value : eventOrValue;
+    newFormData[rowIndex][field] = value;
     setFormData(newFormData);
     onFormChange(newFormData);
   };
@@ -61,9 +61,7 @@ function WorkoutForm({ numRows = 6, onFormChange }) {
             <Grid container spacing={2} className="workout-form-container">
               <Grid item xs={12} md={3}>
               <Autocomplete
-                  options={exercises
-                    .map((exercise) => exercise.name)
-                    .slice(0, 8)} 
+                  options={exercises.map((exercise) => exercise.name)}
                   value={formData[rowIndex]?.exercise || ""}
                   onChange={(event, newValue) =>
                     handleInputChange(newValue, rowIndex, "exercise")

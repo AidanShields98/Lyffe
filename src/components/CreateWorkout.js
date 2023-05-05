@@ -28,17 +28,16 @@ export const CreateWorkout = ({ onWorkoutCreated }) => {
     try {
       const accessToken = await getAccessTokenSilently();
       const workoutDataToSave = {
-        userId: user.sub,
         days: workoutDays,
         workouts: workoutData,
       };
-      await addNewWorkout(workoutDataToSave, accessToken);
+      await addNewWorkout(user.sub, workoutDataToSave, accessToken);
       onWorkoutCreated();
     } catch (error) {
       console.error('Error saving workout:', error);
     }
   };
-
+  
   return (
     <Stack spacing={2} direction="column" alignItems="center" mt={10}>
       {!workoutDays && <SelectDays onDaysSelected={onDaysSelected} />}
