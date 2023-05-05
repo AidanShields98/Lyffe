@@ -3,25 +3,7 @@ import { Typography, Button } from "@mui/material";
 import CreateWorkout from "../components/CreateWorkout";
 import { useAuth0 } from "@auth0/auth0-react";
 import WorkoutTable from "../components/WorkoutTable";
-
-const fetchUserWorkout = async (userId) => {
-  try {
-    const response = await fetch(`${process.env.REACT_APP_API_URL}/workout/${userId}`);
-
-    if (!response.ok) {
-      console.error('Error fetching user workout:', response.status);
-      return null;
-    }
-
-    const responseText = await response.text();
-    const data = JSON.parse(responseText);
-    return data;
-
-  } catch (error) {
-    console.error('Error fetching user workout:', error);
-    return null;
-  }
-};
+import { fetchUserWorkout, deleteUserWorkout } from "../utils/fetchData";
 
 export const Workout = () => {
   const { user, getAccessTokenSilently } = useAuth0();
@@ -40,11 +22,6 @@ export const Workout = () => {
   }, [user]);
 
   const handleWorkoutCreated = () => {
-    const fetchData = async () => {
-      const fetchedWorkout = await fetchUserWorkout(user.sub);
-      setUserWorkout(fetchedWorkout);
-    };
-
     setShowCreateWorkout(false);
     fetchData();
   };
@@ -52,25 +29,15 @@ export const Workout = () => {
   const handleDelete = async () => {
     try {
       const accessToken = await getAccessTokenSilently();
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/workout/${user.sub}`, {
-        method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      });
+      const success = await deleteUserWorkout(user.sub, accessToken);
   
-      if (response.ok) {
-        console.log("Workout plan deleted successfully");
+      if (success) {
         setUserWorkout(null);
-      } else {
-        console.error("Error deleting workout plan:", response.statusText);
       }
     } catch (error) {
       console.error("Error deleting workout plan:", error);
     }
   };
-  
-
   
   return (
     <div>

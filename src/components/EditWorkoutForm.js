@@ -3,7 +3,7 @@ import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 
-function EditWorkoutForm({ workoutData, onSave, onCancel, onWorkoutUpdated }) {
+function EditWorkoutForm({ workoutData, onSave, onCancel }) {
   const [formData, setFormData] = useState([]);
 
   useEffect(() => {
@@ -24,7 +24,6 @@ function EditWorkoutForm({ workoutData, onSave, onCancel, onWorkoutUpdated }) {
   };
 
   const handleSubmit = (event) => {
-    event.preventDefault();
     onSave(formData);
   };
 

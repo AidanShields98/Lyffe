@@ -1,28 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Stack } from '@mui/material';
 import Pagination from '@mui/material/Pagination';
-import { exerciseOptions, fetchData } from '../utils/fetchData';
+import { Data, fetchExercise } from '../utils/fetchData';
 import ExerciseCard from './ExerciseCard';
 
-const Exercise = ({ exercises, setExercises, bodyPart }) => {
+const Exercise = ({ ex, setData }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [exercisesPerPage] = useState(6);
 
   useEffect(() => {
-    const fetchExercisesData = async () => {
-      let exercisesData = [];
-        exercisesData = await fetchData('https://exercisedb.p.rapidapi.com/exercises', exerciseOptions);   //this authorizes me to make the request with rapidapi so it is passed to both using the key 
+    const fetchApiExera = async () => {
+      let exData = [];
+        exData = await fetchExercise('https://exercisedb.p.rapidapi.com/exercises', Data); 
 
-      setExercises(exercisesData);
+      setData(exData);
     };
 
-    fetchExercisesData();
-  }, [bodyPart]);
+    fetchApiExera();
+  }, []);
+
 
     // Pagination
-    const indexOfLastExercise = currentPage * exercisesPerPage;
-    const indexOfFirstExercise = indexOfLastExercise - exercisesPerPage;
-    const currentExercises = exercises.slice(indexOfFirstExercise, indexOfLastExercise);
+    const LastExercise = currentPage * exercisesPerPage;
+    const FirstExercise = LastExercise - exercisesPerPage;
+    const currentExercises = ex.slice(FirstExercise, LastExercise);
   
     const paginate = (event, value) => {
       setCurrentPage(value);
@@ -31,14 +32,14 @@ const Exercise = ({ exercises, setExercises, bodyPart }) => {
     };
 
   return (
-    <Box id="exercises" className="exercise-box" sx={{ mt: { lg: '109px'} }}>
+    <Box id="ex" className="exercise-box" sx={{ mt: { lg: '109px'} }}>
       <Stack  className="exercise-stack"  direction="row" sx={{ gap: { lg: '107px', xs: '50px' } }}>
       {currentExercises.map((exercise, idx) => (
           <ExerciseCard key={idx} exercise={exercise} />
         ))}
       </Stack>
       <Stack sx={{ mt: '70px'  }} alignItems="center">
-        {exercises.length > 9 && (
+        {ex.length > 9 && (
           <Pagination
             color="standard"
             shape="rounded"
@@ -46,7 +47,7 @@ const Exercise = ({ exercises, setExercises, bodyPart }) => {
             size="medium" 
             page={currentPage}
             onChange={paginate}            
-            count={Math.ceil(exercises.length / exercisesPerPage)}
+            count={Math.ceil(ex.length / exercisesPerPage)}
           />
         )}
       </Stack>

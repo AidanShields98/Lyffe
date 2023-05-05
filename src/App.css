@@ -1,36 +1,39 @@
 .App {
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  body {
-    font-family: 'Josefin Sans';
-    background-color: #FFF;
-  }
-  
-  * {
-    padding: 0px;
-    margin: 0px;
-    box-sizing: border-box;
-  
-  }
-  
-  ::-webkit-scrollbar {
-    width: 0px;
-  }
-    
-  .Appbar {
-    background-color: #1976d2 !important;
-    color: #FFF !important;
-  }
-  
- /*
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+body {
+  font-family: "Josefin Sans";
+  background-color: #fff;
+}
+
+* {
+  padding: 0px;
+  margin: 0px;
+  box-sizing: border-box;
+}
+
+::-webkit-scrollbar {
+  width: 0px;
+}
+
+.Appbar {
+  background-color: #1976d2 !important;
+  color: #fff !important;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+
+/*
  Landing page 
   */
-  
 
-  /* 
+/* 
   .landing-buttonContainer {
     width: 300px;
     display: flex;
@@ -39,98 +42,98 @@
     margin-top: var(--spacing-5);
   }
   */
-  .landing-button {
-    margin: 0 auto;
-    display: block;
-    margin-top: 1vh !important;
-  } 
+.landing-button {
+  margin: 0 auto;
+  display: block;
+  margin-top: 1vh !important;
+}
 
-  .landing-root {
-    flex-grow: 1;
-  }
-  
+.landing-root {
+  flex-grow: 1;
+}
 
+.hero-title {
+  font-family: "Nunito !important";
+  color: #ffffff;
+  font-size: 8rem !important;
+}
 
-  .hero-title{
-    font-family: "Nunito !important";
-    color: #ffffff;
-    font-size: 8rem !important;
-  }
-  
-  .hero-para{
-    font-family: "Nunito !important";
-    color: #ffffff;
-    margin-top: 32vh !important;
-    font-size: 3rem !important;
-  }
+.hero-para {
+  font-family: "Nunito !important";
+  color: #ffffff;
+  margin-top: 32vh !important;
+  font-size: 3rem !important;
+}
 
-  
+.hero-down {
+  color: #1976d2;
+  font-size: 4rem !important;
+}
 
-  .hero-down{
-    color: #1976d2;
-    font-size: 4rem !important;
-  }
-  
-  .landing-heroLogin {
-    position: absolute;
-    bottom: 0;
-    left: 0;
+.landing-heroLogin {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
 
-  }
-  
-  .landing-cardGrid {
-    margin-top: 16px; 
-    margin-bottom: 16px; 
-  }
-  
-  .landing-card {
-    max-width: 500px;
-  }
-  
-  .landing-cardMedia {
-    height: 350px;
-  }
-  
-  .landing-cardContent {
-    flex-grow: 2;
-  }
-  
-  .content-title {
-    font-family: "Nunito !important";
-    font-weight: bold;
-    font-size: 2rem !important;
-    color: #fff;
-  }
+.landing-cardGrid {
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
 
-  .content-description {
-    font-family: "Nunito !important";
-    font-size: 1.3rem !important;
-    color: #ddd;
-  }
+.landing-card {
+  max-width: 500px;
+}
 
-  /* 
+.landing-cardMedia {
+  height: 350px;
+}
+
+.landing-cardContent {
+  flex-grow: 2;
+}
+
+.content-title {
+  font-family: "Nunito !important";
+  font-weight: bold;
+  font-size: 2rem !important;
+  color: #fff;
+}
+
+.content-description {
+  font-family: "Nunito !important";
+  font-size: 1.3rem !important;
+  color: #ddd;
+}
+
+/* 
   Home page
   */
 
-  .home-cards {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+  .home-root {
     gap: 20px;
-    padding: 10px;
+    padding: 50px;
   }
-    
-  .content-title {
-    color: #000;
-    font-weight: bold;
-    font-size: 2rem !important;
-  }
-  
-  .content-description {
-    font-size: 1.3rem !important;
-  }
-  
-.content-image{
+
+.home-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  padding: 10px;
+}
+
+.content-title {
+  color: #000;
+  font-weight: bold;
+  font-size: 2rem !important;
+}
+
+.content-description {
+  font-size: 1.3rem !important;
+}
+
+.content-image {
   height: 300px;
 }
 
@@ -149,8 +152,8 @@
   height: 50%;
   flex: 1 1 300px;
 }
-  
-  /* 
+
+/* 
   Exercise page
   */
 
@@ -162,78 +165,67 @@
 .exercise-stack {
   justify-content: center;
   flex-wrap: wrap;
-
 }
 
-
-
-  
-
-  /* 
+/* 
   Exercise Card
   */
 
+.exercise-card {
+  width: 400px;
+  height: 445px;
+  background: #fff !important;
+  border-top: 4px solid #1976d2;
+  border-bottom: 4px solid #1976d2;
+  border-bottom-left-radius: 20px;
+  text-decoration: none;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  padding-bottom: 10px;
+  transform: scale(1, 1);
+  transition: 0.3s all ease-in-out;
+  box-shadow: 5px 0 5px -5px rgba(0, 0, 0, 0.2),
+    -5px 0 5px -5px rgba(0, 0, 0, 0.2);
+}
 
- .exercise-card {
-    width: 400px;
-    height: 445px;
-    background: #fff !important;
-    border-top: 4px solid #1976d2;
-    border-bottom: 4px solid #1976d2;
-    border-bottom-left-radius: 20px;
-    text-decoration: none;
-    display: flex;
-    justify-content: space-between;
-    flex-direction: column;
-    padding-bottom: 10px;
-    transform: scale(1, 1);
-    transition: 0.3s all ease-in-out;
-    box-shadow: 5px 0 5px -5px rgba(0, 0, 0, 0.2), -5px 0 5px -5px rgba(0, 0, 0, 0.2);
-  }
-
-  .exercise-card:hover {
+.exercise-card:hover {
   transform: scale(1.1, 1.1);
 }
-  
-  .exercise-card img {
-    height: 326px;
-  }
- 
-  .exercise-card-stack {
-    justify-content: center;
-    align-items: center;
-  }
 
-  .exercise-card-button {
-    color: #FFF !important;
-    background-color: #262424 !important;
-    font-size: 14px;
-    border-radius: 15px !important;
-    text-transform: capitalize;
-  }
+.exercise-card img {
+  height: 326px;
+}
 
-  .exercise-card-typ {
-    color: black;
-    font-weight: bold !important;
-    margin-top: 10px !important;
-    padding-bottom: 10px;
-    text-transform: capitalize;
-    text-align: center;
-  }
+.exercise-card-stack {
+  justify-content: center;
+  align-items: center;
+}
 
+.exercise-card-button {
+  color: #fff !important;
+  background-color: #262424 !important;
+  font-size: 14px;
+  border-radius: 15px !important;
+  text-transform: capitalize;
+}
 
-
-
-
+.exercise-card-typ {
+  color: black;
+  font-weight: bold !important;
+  margin-top: 10px !important;
+  padding-bottom: 10px;
+  text-transform: capitalize;
+  text-align: center;
+}
 
 /* 
 search Exercises 
 */
 
-
 .search-stack {
   align-items: center;
-  margin-top: 37px;
+  margin-top: 75px;
   justify-content: center;
   padding: 20px;
 }
@@ -242,7 +234,7 @@ search Exercises
   position: relative;
 }
 
-.search-text{
+.search-text {
   height: 76px;
   background-color: "#fff";
   border-radius: 40px;
@@ -253,18 +245,13 @@ search Exercises
   position: absolute !important;
   right: 0px;
   background-color: #1976d2 !important;
-  color: #FFF !important;
+  color: #fff !important;
 }
 
 .search-btn:hover {
   color: #1976d2 !important;
   border: 1px solid #1976d2 !important;
 }
-
-
-
-
-
 
 /* 
 Exercise detail 
@@ -280,7 +267,7 @@ Exercise detail
 }
 
 .detail-image {
-  width: 40%;    
+  width: 40%;
   height: 742px;
 }
 
@@ -294,29 +281,25 @@ Exercise detail
   gap: 24px;
 }
 
-
-
-
-
 /* 
 Workout Page
 */
 
-.workout-grid{
+.workout-grid {
   display: flex;
   justify-content: center;
 }
 
 .workout-btn {
-  width: 95%
+  width: 95%;
 }
 
 .workout {
-   display: "flex";
-    flex-direction: "column";
-    align-items: "center";
-    justify-content: "center";
-    position: "relative";
+  display: "flex";
+  flex-direction: "column";
+  align-items: "center";
+  justify-content: "center";
+  position: "relative";
 }
 
 .workout-form {
@@ -345,7 +328,6 @@ Workout Page
   text-align: center;
 }
 
-
 .workout-accordion {
   display: flex;
   flex-direction: column;
@@ -357,7 +339,6 @@ Workout Page
   justify-content: center;
   font-weight: bold;
 }
-
 
 .workout-accordion-details {
   display: flex !important;
@@ -373,7 +354,7 @@ Workout Page
   margin-top: calc(100px + 1vh);
 }
 
-.days-form{
+.days-form {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -393,20 +374,20 @@ Workout Page
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 24px;
+  padding: 80px;
   padding-bottom: 80px;
 }
 
 .table-row {
-  background-color: #ffffff;
-  border: 1px solid #e0e0e0;
-  border-radius: 2px;
-  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
-  padding: 16px;
+  padding: 10px;
   width: 100%;
   max-width: 800px;
   margin-bottom: 24px;
-  border-radius: 1%;
+  border-top: 4px solid #1976d2 ;
+  border-bottom: 4px solid #1976d2 ;
+  border-radius: 15px;
+  box-shadow: 5px 0 5px -5px rgba(0, 0, 0, 0.2),
+    -5px 0 5px -5px rgba(0, 0, 0, 0.2);
 }
 
 .workout-heading {
@@ -467,63 +448,44 @@ User page
   margin-top: 16px;
 }
 
-
-
-
-
-
-
-
-
-
-
-  @media screen and (max-width:1200px) {
-    .detail-image {
-      width: 300px;
-      height: 270px;
-    }
-  
-
-    .exercise-card {
-      width: 320px;
-    }
-
-    .hero-title {
-        font-size: 5rem !important; 
-    }
-    
-    .hero-para {
-        font-size: 2rem !important;
-    }
-    
-  
-  }
-  
-
-  @media (min-width: 600px) {
-
-
-    
+@media screen and (max-width: 1200px) {
+  .detail-image {
+    width: 300px;
+    height: 270px;
   }
 
-
-
-  @media screen and (max-width:400px) {
-    .exercise-card {
-      width: 280px;
-    }
-
-    .content-image{
-      height: 170px; 
-    }
-
-    .content-title {
-      color: #000;
-      font-weight: bold;
-      font-size: 1rem !important;
-    }
-    
-    .content-description {
-      font-size: 0.8rem !important;
-    }
+  .exercise-card {
+    width: 320px;
   }
+
+  .hero-title {
+    font-size: 5rem !important;
+  }
+
+  .hero-para {
+    font-size: 2rem !important;
+  }
+}
+
+@media (min-width: 600px) {
+}
+
+@media screen and (max-width: 400px) {
+  .exercise-card {
+    width: 280px;
+  }
+
+  .content-image {
+    height: 170px;
+  }
+
+  .content-title {
+    color: #000;
+    font-weight: bold;
+    font-size: 1rem !important;
+  }
+
+  .content-description {
+    font-size: 0.8rem !important;
+  }
+}

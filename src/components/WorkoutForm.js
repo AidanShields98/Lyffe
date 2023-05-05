@@ -1,8 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
+import { fetchExercise, Data } from "../utils/fetchData";
+import Autocomplete from '@mui/material/Autocomplete';
+
 function WorkoutForm({ numRows = 6, onFormChange }) {
+  const [exercises, setExercises] = useState([]);
   const [formData, setFormData] = useState(
     Array(numRows)
       .fill()
@@ -14,9 +18,23 @@ function WorkoutForm({ numRows = 6, onFormChange }) {
       }))
   );
 
-  const handleInputChange = (event, rowIndex, field) => {
+  useEffect(() => {
+    const fetchApiExera = async () => {
+      let exData = [];
+      exData = await fetchExercise(
+        "https://exercisedb.p.rapidapi.com/exercises",
+        Data
+      );
+
+      setExercises(exData);
+    };
+
+    fetchApiExera();
+  }, []);
+  const handleInputChange = (eventOrValue, rowIndex, field) => {
     const newFormData = [...formData];
-    newFormData[rowIndex][field] = event.target.value;
+    const value = eventOrValue.target ? eventOrValue.target.value : eventOrValue;
+    newFormData[rowIndex][field] = value;
     setFormData(newFormData);
     onFormChange(newFormData);
   };
@@ -42,14 +60,21 @@ function WorkoutForm({ numRows = 6, onFormChange }) {
           <div key={rowIndex} className="workout-row">
             <Grid container spacing={2} className="workout-form-container">
               <Grid item xs={12} md={3}>
-                <TextField
-                  label="Exercise Name"
-                  variant="outlined"
+              <Autocomplete
+                  options={exercises.map((exercise) => exercise.name)}
                   value={formData[rowIndex]?.exercise || ""}
-                  onChange={(event) =>
-                    handleInputChange(event, rowIndex, "exercise")
+                  onChange={(event, newValue) =>
+                    handleInputChange(newValue, rowIndex, "exercise")
                   }
-                  fullWidth
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label="Exercise Name"
+                      variant="outlined"
+                      fullWidth
+                    />
+                  )}
+                  clearIcon={null}
                 />
               </Grid>
               <Grid item xs={4} md={3}>
@@ -91,28 +116,33 @@ function WorkoutForm({ numRows = 6, onFormChange }) {
             </Grid>
           </div>
         ))}
-        <Grid container spacing={2} alignItems="center" justifyContent="center" mt={2}>
-          <Grid
-            item
-            xs={5}
-            sm={6}
-            md={3}
-           className="workout-grid"
-          >
-            <Button variant="contained" color="primary"  className="workout-btn" onClick={handleAddRow}>
+        <Grid
+          container
+          spacing={2}
+          alignItems="center"
+          justifyContent="center"
+          mt={2}
+        >
+          <Grid item xs={5} sm={6} md={3} className="workout-grid">
+            <Button
+              variant="contained"
+              color="primary"
+              className="workout-btn"
+              onClick={handleAddRow}
+            >
               Add Row
             </Button>
           </Grid>
           <Grid item xs={5} sm={6} md={3} className="workout-grid">
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={handleDeleteRow}
-          className="workout-btn"
-        >
-          Delete Row
-        </Button>
-      </Grid>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleDeleteRow}
+              className="workout-btn"
+            >
+              Delete Row
+            </Button>
+          </Grid>
         </Grid>
       </form>
     </div>
