@@ -25,10 +25,11 @@ const ExerciseDetail = () => {
   // if (!exerciseDetail) return <div>No Data</div>;
 
   return (
-    <Box >
-      <Detail exerciseDetail={exerciseDetail} />
+    <Box>
+      <Detail exerciseData={exerciseDetail} />
     </Box>
   );
+
 };
 
 export default ExerciseDetail;
