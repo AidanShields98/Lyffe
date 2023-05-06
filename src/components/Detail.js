@@ -2,24 +2,24 @@ import React from "react";
 import { Typography, Stack, Button } from "@mui/material";
 
 import Target from "../assets/icons/Target.png";
-import Person from "../assets/icons/person.png";
-import Equipment from "../assets/icons/equipment.png";
+import Body from "../assets/icons/person.png";
+import gear from "../assets/icons/equipment.png";
 
-const Detail = ({ exerciseDetail }) => {
-  const { bodyPart, gifUrl, name, target, equipment } = exerciseDetail;
+const Detail = ({ exerciseData }) => {
+  const { body, gifUrl, name, target, gear: gearData } = exerciseData;
 
-  const extraDetail = [
+  const detailData = [
     {
-      icon: Person,
-      name: bodyPart,
+      icon: Body,
+      name: body,
     },
     {
       icon: Target,
       name: target,
     },
     {
-      icon: Equipment,
-      name: equipment,
+      icon: gear,
+      name: gearData,
     },
   ];
 
@@ -33,14 +33,14 @@ const Detail = ({ exerciseDetail }) => {
         >
           {name}
         </Typography>
-        {extraDetail?.map((item) => (
+        {detailData?.map((item) => (
           <Stack key={item.name} className="detail-stack-inner" direction="row">
             <Button
               sx={{ borderRadius: "50%", width: "100px", height: "100px" }}
             >
               <img
                 src={item.icon}
-                alt={bodyPart}
+                alt={body}
                 style={{ width: "50px", height: "50px" }}
               />
             </Button>
