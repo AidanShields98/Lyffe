@@ -31,6 +31,7 @@ function WorkoutForm({ numRows = 6, onFormChange }) {
 
     fetchApiExera();
   }, []);
+  
   const handleInputChange = (eventOrValue, rowIndex, field) => {
     const newFormData = [...formData];
     const value = eventOrValue.target ? eventOrValue.target.value : eventOrValue;

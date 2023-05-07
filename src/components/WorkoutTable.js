@@ -12,6 +12,7 @@ import { saveUserWorkout } from "../utils/fetchData";
 function WorkoutTable({ workoutData, userId, onDelete, onWorkoutUpdated }) {
   const [editingWorkout, setEditingWorkout] = useState(null);
   const { getAccessTokenSilently } = useAuth0();
+
   const handleEdit = (workoutId, ex) => {
     setEditingWorkout({ workoutId, ex });
   };
