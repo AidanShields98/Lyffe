@@ -124,7 +124,7 @@ function EditWorkoutForm({ workoutData, onSave, onCancel }) {
         justifyContent="space-between"
         style={{ marginTop: "1rem" }}
       >
-        <Grid item xs={3} md={3}>
+        <Grid item xs={6} md={3}>
           <Button
             variant="contained"
             color="primary"
@@ -134,7 +134,7 @@ function EditWorkoutForm({ workoutData, onSave, onCancel }) {
             Add Row
           </Button>
         </Grid>
-        <Grid item xs={3} md={3}>
+        <Grid item xs={6} md={3}>
           <Button
             variant="contained"
             color="primary"
@@ -144,12 +144,12 @@ function EditWorkoutForm({ workoutData, onSave, onCancel }) {
             Delete Row
           </Button>
         </Grid>
-        <Grid item xs={3} md={3}>
+        <Grid item xs={6} md={3}>
           <Button variant="contained" color="primary" type="submit" fullWidth>
             Save
           </Button>
         </Grid>
-        <Grid item xs={3} md={3}>
+        <Grid item xs={6} md={3}>
           <Button
             variant="contained"
             color="secondary"

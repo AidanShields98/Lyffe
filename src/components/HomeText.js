@@ -6,7 +6,7 @@ export const HomeText = () => {
         sx={{
           p: 2,
           textAlign: 'center',
-          maxWidth: '65%',
+          maxWidth: { lg: '65%', xs: '80%' },
           margin: '0 auto',
         }}
       >

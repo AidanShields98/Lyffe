@@ -511,6 +511,16 @@ User page
     width: 280px;
   }
 
+  .home-root {
+    gap: 20px;
+    padding: 50px 10px;
+
+  }
+
+  .table-root {
+    padding: 70px 20px;
+  }
+
   .content-image {
     height: 170px;
   }

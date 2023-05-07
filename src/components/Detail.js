@@ -6,12 +6,12 @@ import Body from "../assets/icons/person.png";
 import gear from "../assets/icons/equipment.png";
 
 const Detail = ({ exerciseData }) => {
-  const { body, gifUrl, name, target, gear: gearData } = exerciseData;
+  const { bodyPart, gifUrl, name, target, equipment } = exerciseData;
 
   const detailData = [
     {
       icon: Body,
-      name: body,
+      name: bodyPart,
     },
     {
       icon: Target,
@@ -19,7 +19,7 @@ const Detail = ({ exerciseData }) => {
     },
     {
       icon: gear,
-      name: gearData,
+      name: equipment,
     },
   ];
 
@@ -40,7 +40,7 @@ const Detail = ({ exerciseData }) => {
             >
               <img
                 src={item.icon}
-                alt={body}
+                alt={bodyPart}
                 style={{ width: "50px", height: "50px" }}
               />
             </Button>
