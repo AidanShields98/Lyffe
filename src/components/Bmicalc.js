@@ -10,7 +10,7 @@ export const BmiCalc = () => {
   const calculateBMI = () => {
     if (height && weight) {
       const heightMeters = height / 100;
-      const calculatedBmi = (weight / (heightMeters * heightMeters)).toFixed(1);
+      const calculatedBmi = (weight / (heightMeters * heightMeters)).toFixed(1);  //converts number to string with 1 decimal place
       setBmi(calculatedBmi);
     }
   };

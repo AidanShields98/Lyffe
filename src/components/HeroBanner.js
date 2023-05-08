@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Collapse, IconButton, Typography } from "@material-ui/core";
+import { Collapse, Typography } from "@material-ui/core";
 import LoginButton from "./LoginButton";
 import { Stack } from "@mui/material";
-import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown';
+
 
 const HeroBanner = () => {
   const [checked, setChecked] = useState(false);
@@ -17,11 +17,12 @@ const HeroBanner = () => {
     justifyContent: 'center',
     alignItems: 'center',
     textAlign: 'center',
-    minHeight: '80vh', // reduce the minHeight value
+    minHeight: '80vh', 
     padding: '2rem',
     position: 'relative',
   }}
 >
+      //ternary operator, when true the animation runs for 1 second 
       <Collapse in={checked}  {...(true ? { timeout: 1000} : {} )} collapsedSize={100}> 
       <Typography variant="h1" className="hero-title" gutterBottom>
         Welcome to Lyffe
