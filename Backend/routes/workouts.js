@@ -3,32 +3,10 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const axios = require('axios');
 const { v4: uuidv4 } = require('uuid');
-
-const workoutSchema = new mongoose.Schema({
-  exercise: { type: String, required: true },
-  reps: { type: Number, required: true },
-  sets: { type: Number, required: true },
-  weight: { type: Number, required: true },
-});
-
-const workoutPlanSchema = new mongoose.Schema({
-  userId: { type: String, required: true },
-  days: {
-    type: Number,
-    required: true,
-    validate: {
-      validator: function (value) {
-        return value >= 3 && value <= 6;
-      },
-      message: 'Days must be a number between 3 and 6',
-    },
-  },
-  workouts: { type: Map, of: [workoutSchema] },
-});
+const WorkoutPlan = require('../models/workoutPlan');
 
 
-const WorkoutPlan = mongoose.model('WorkoutPlan', workoutPlanSchema);
-
+// Define a function to verify the access token using the Auth0 Management API
 const verifyAccessToken = async (accessToken) => {
   try {
     const response = await axios.get(`https://${process.env.AUTH0_DOMAIN}/userinfo`, {
@@ -43,7 +21,7 @@ const verifyAccessToken = async (accessToken) => {
   }
 };
 
-
+// Route to add a new workout plan
 router.post('/addworkout', async (req, res) => {
   try {
     // Extract the access token from the Authorization header
@@ -83,7 +61,7 @@ router.post('/addworkout', async (req, res) => {
 });
 
 
-
+// Route to get a user's workout plan by user ID
 router.get('/:userId', async (req, res) => {
   try {
     const userId = req.params.userId;
@@ -102,6 +80,7 @@ router.get('/:userId', async (req, res) => {
   }
 });
 
+// Route to update a workout by workout ID and user ID
 router.put('/:userId/:workoutId', async (req, res) => {
   try {
     const authHeader = req.headers.authorization;
@@ -131,17 +110,15 @@ router.put('/:userId/:workoutId', async (req, res) => {
       return;
     }
 
-
-    const existingWorkout = workoutPlan.workouts.get(workoutId);
-
-    const updatedWorkout = workoutData.map((exercise, index) => {
-      // If the exercise doesn't have an _id, assign a new ObjectId
+    // Map over the workout data, generating new _id's for any new exercises
+    const updatedWorkout = workoutData.map((exercise) => {
       if (!exercise._id) {
-        exercise._id = new ObjectId();
+        return { ...exercise, _id: new mongoose.Types.ObjectId() };
       }
       return exercise;
     });
-    
+
+    // Update the workout data in the workout plan
     workoutPlan.workouts.set(workoutId, updatedWorkout);
     await workoutPlan.save();
 
@@ -153,6 +130,9 @@ router.put('/:userId/:workoutId', async (req, res) => {
   }
 });
 
+
+
+// Route to delete a workout by user ID
 router.delete('/:userId', async (req, res) => {
   try {
     const authHeader = req.headers.authorization;

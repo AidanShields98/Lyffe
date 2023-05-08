@@ -11,8 +11,13 @@ export const Workout = () => {
   const [showCreateWorkout, setShowCreateWorkout] = useState(false);
 
   const fetchData = async () => {
-    const fetchedWorkout = await fetchUserWorkout(user.sub);
-    setUserWorkout(fetchedWorkout);
+    try {
+      const accessToken = await getAccessTokenSilently();
+      const fetchedWorkout = await fetchUserWorkout(user.sub, accessToken);
+      setUserWorkout(fetchedWorkout);
+    } catch (error) {
+      console.error("Error fetching user workout:", error);
+    }
   };
 
   useEffect(() => {

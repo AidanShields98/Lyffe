@@ -35,18 +35,21 @@ export const Data = {
       console.error('Error saving user workout:', error);
     }
   }
-
-  export const fetchUserWorkout = async (userId) => {
+  
+export const fetchUserWorkout = async (userId, accessToken) => {
   try {
-    const response = await fetch(`${process.env.REACT_APP_API_URL}/workout/${userId}`);
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/workout/${userId}`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
 
     if (!response.ok) {
       console.error('Error fetching user workout:', response.status);
       return null;
     }
 
-    const responseText = await response.text();
-    const data = JSON.parse(responseText);
+    const data = await response.json();
     return data;
 
   } catch (error) {
@@ -54,7 +57,7 @@ export const Data = {
     return null;
   }
 };
-
+  
 export const deleteUserWorkout = async (userId, accessToken) => {
   try {
     const response = await fetch(`${process.env.REACT_APP_API_URL}/workout/${userId}`, {
