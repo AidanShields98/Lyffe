@@ -27,14 +27,15 @@ function EditWorkoutForm({ workoutData, onSave, onCancel }) {
     fetchApiExera();
   }, []);
 
-  const handleInputChange = (event, rowIndex, field) => {
+  const handleInputChange = (newValue, rowIndex, field) => {
     const newFormData = [...formData];
     newFormData[rowIndex] = {
       ...newFormData[rowIndex],
-      [field]: event.target.value,
+      [field]: newValue,
     };
     setFormData(newFormData);
   };
+  
 
   const handleAddRow = () => {
     setFormData([
@@ -63,26 +64,23 @@ function EditWorkoutForm({ workoutData, onSave, onCancel }) {
         <div key={rowIndex} className="workout-row">
           <Grid container spacing={2} className="workout-form-container">
             <Grid item xs={12} md={3}>
-              <Autocomplete
-                options={exercises.map((exercise) => exercise.name)}
-                value={formData[rowIndex]?.exercise || ""}
-                onChange={(event, newValue) =>
-                  handleInputChange(event, rowIndex, "exercise")
-                }
-                onBlur={(event) =>
-                  handleInputChange(event, rowIndex, "exercise")
-                }
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    label="Exercise Name"
-                    variant="outlined"
-                    fullWidth
-                  />
-                )}
-                clearIcon={null}
-              />
-            </Grid>
+            <Autocomplete
+              options={exercises.map((exercise) => exercise.name)}
+              value={formData[rowIndex]?.exercise || ""}
+              onChange={(event, newValue) =>
+                handleInputChange(newValue, rowIndex, "exercise")
+              }
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  label="Exercise Name"
+                  variant="outlined"
+                  fullWidth
+                />
+              )}
+              clearIcon={null}
+            />
+          </Grid>
             <Grid item xs={4} md={3}>
               <TextField
                 label="Sets"
