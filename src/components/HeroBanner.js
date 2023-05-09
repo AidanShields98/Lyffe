@@ -22,7 +22,7 @@ const HeroBanner = () => {
     position: 'relative',
   }}
 >
-      //ternary operator, when true the animation runs for 1 second 
+      {/* //ternary operator, when true the animation runs for 1 second  */}
       <Collapse in={checked}  {...(true ? { timeout: 1000} : {} )} collapsedSize={100}> 
       <Typography variant="h1" className="hero-title" gutterBottom>
         Welcome to Lyffe
